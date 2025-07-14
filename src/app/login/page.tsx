@@ -17,7 +17,7 @@ export default function page() {
             />
             <label className="text-xl pl-3 font-bold">Password</label>
             <input
-              type="text"
+              type="password"
               className="bg-gray-100 text-xl shadow-md rounded-xl py-3 pl-3 w-full mt-3 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
               placeholder="Enter your password"
             />
