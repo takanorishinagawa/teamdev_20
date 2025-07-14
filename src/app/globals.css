@@ -1,8 +1,11 @@
-* {
+@import "tailwindcss";
+/* tailwind追加、 リセットCSSを無効化しました。*/
+
+/* * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
+} */
 
 a {
   color: inherit;
