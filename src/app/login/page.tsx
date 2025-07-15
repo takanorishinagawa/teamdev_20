@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Header from "../components/header/Header";
 import Button from "../components/button/Button";
+import FormInput from "../components/field/FormInput";
 
 export default function page() {
   return (
@@ -12,7 +13,11 @@ export default function page() {
         <div className="w-1/3 text-center">
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign In</h1>
           <div className="mx-16 text-left">
-            <label htmlFor="email" className="pl-3 text-xl font-bold">
+            {/* 参考（Naoya） */}
+            <FormInput label="email" placeholder="Enter your email" />
+            <FormInput label="password" placeholder="Enter your password" />
+
+            {/* <label htmlFor="email" className="pl-3 text-xl font-bold">
               Email
             </label>
             <input
@@ -21,8 +26,9 @@ export default function page() {
               type="email"
               className="mt-3 mb-5 w-full rounded-xl bg-gray-100 py-3 pl-3 text-xl shadow-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:outline-none"
               placeholder="Enter your email"
-            />
-            <label htmlFor="password" className="pl-3 text-xl font-bold">
+            /> */}
+
+            {/* <label htmlFor="password" className="pl-3 text-xl font-bold">
               Password
             </label>
             <input
@@ -31,7 +37,7 @@ export default function page() {
               type="password"
               className="mt-3 w-full rounded-xl bg-gray-100 py-3 pl-3 text-xl shadow-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:outline-none"
               placeholder="Enter your password"
-            />
+            /> */}
           </div>
 
           {/* 参考（Naoya） */}
