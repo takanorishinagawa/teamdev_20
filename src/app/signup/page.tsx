@@ -43,16 +43,22 @@ export default function page() {
               placeholder="Enter your password"
             />
           </div>
-          {/* 参考
-          <Button onClick={() => alert("サインアップ！")}>Sign Up</Button> */}
 
+          {/* 参考（Naoya） */}
           <div className="mt-10">
-            <button
+            <Button
+              variant="Blue"
+              size="md"
+              onClick={() => alert("サインアップ！")}
+            >
+              Login
+            </Button>
+            {/* <button
               type="submit"
               className="transform rounded-full bg-sky-500 px-10 py-3 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300"
             >
               Sign Up
-            </button>
+            </button> */}
           </div>
 
           <div className="mt-4 flex justify-center space-x-3 font-bold">

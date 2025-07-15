@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Header from "../components/header/Header";
 import Button from "../components/button/Button";
@@ -34,7 +36,11 @@ export default function page() {
 
           {/* 参考（Naoya） */}
           <div className="mt-10">
-            <Button variant="Blue" size="md">
+            <Button
+              variant="Blue"
+              size="md"
+              onClick={() => alert("ログイン！")}
+            >
               Login
             </Button>
 
