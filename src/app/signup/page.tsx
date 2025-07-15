@@ -44,7 +44,7 @@ export default function page() {
             type="submit"
             className="bg-sky-500 font-bold text-white rounded-full mt-10 py-3 px-10 text-xl shadow-md hover:bg-sky-300 hover:-translate-y-1 transform  duration-300"
           >
-            Sign Up
+              Sign Up
           </button>
           <div className="flex justify-center mt-4 font-bold space-x-3">
             <p className="">Already have an account?</p>
