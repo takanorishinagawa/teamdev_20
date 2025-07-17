@@ -1,10 +1,8 @@
 // ログインのセッション確認後に遷移
 
-export default function Home() {
-  return (
-    <div>
-    
-      <main>Hello world</main>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+export default function PageTop() {
+  redirect("/article/home");
+  return;
 }
