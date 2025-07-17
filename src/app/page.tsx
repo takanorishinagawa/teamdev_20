@@ -1,9 +1,10 @@
-import Header from "./components/header/Header";
+// ログインのセッション確認後に遷移
 
 export default function Home() {
   return (
     <div>
-      <Header />
+    
+      <main>Hello world</main>
     </div>
   );
 }
