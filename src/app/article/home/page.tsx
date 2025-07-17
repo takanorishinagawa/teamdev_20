@@ -8,7 +8,7 @@ const ArticleHomePage = () => {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="p-10">
       <div className="flex flex-col items-center">
         <h2>記事投稿ホーム画面</h2>
 
