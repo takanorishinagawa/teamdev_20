@@ -8,7 +8,7 @@ import React from "react";
 
 type ButtonProps = {
   children: React.ReactNode;
-  href?: string; // ここで受け取る
+  href?: string; 
   onClick?: () => void;
   className?: string;
   variant?: "Blue" | "DarkBlue" | "white";
