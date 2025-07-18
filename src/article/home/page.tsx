@@ -1,7 +1,6 @@
 import PostCard, { Post } from "../../app/components/PostCard";
 
-const Home = () => {
-  // ダミーデータ
+// ダミーデータ
   const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
     title: `Post Title ${i + 1}`,
     category: "Category",
@@ -9,6 +8,8 @@ const Home = () => {
     date: "5 min ago",
     thumbnail: "https://via.placeholder.com/300x200",
   }));
+
+const Home = () => {
 
   return (
     <main className="max-w-6xl mx-auto p-4">
@@ -45,20 +46,7 @@ const Home = () => {
       </section>
 
       {/* ページネーション */}
-      <nav className="flex justify-center mt-8 space-x-2">
-        <button className="px-3 py-1 border rounded">← Previous</button>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <button
-            key={page}
-            className={`px-3 py-1 border rounded ${
-              page === 1 ? "bg-black text-white" : ""
-            }`}
-          >
-            {page}
-          </button>
-        ))}
-        <button className="px-3 py-1 border rounded">Next →</button>
-      </nav>
+      
     </main>
   );
 }
