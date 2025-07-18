@@ -1,4 +1,4 @@
-import PostCard, { Post } from "../../app/components/PostCard";
+import PostCard, { Post } from "@/app/components/PostCard";
 
 // ダミーデータ
   const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
@@ -10,7 +10,6 @@ import PostCard, { Post } from "../../app/components/PostCard";
   }));
 
 const Home = () => {
-
   return (
     <main className="max-w-6xl mx-auto p-4">
       {/* ヘッダー */}
