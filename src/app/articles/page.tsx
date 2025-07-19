@@ -1,4 +1,5 @@
-import PostCard, { Post } from "@/app/components/PostCard";
+import PostCard, { Post } from "@/app/components/postCard/PostCard";
+import Header from "../components/header/Header";
 
 // ダミーデータ
 const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
@@ -13,7 +14,7 @@ const Home = () => {
   return (
     <main className="max-w-6xl mx-auto p-4">
       {/* ヘッダー */}
-      <header className="flex justify-between items-center py-4">
+      {/* <header className="flex justify-between items-center py-4">
         <h1 className="text-xl font-bold">My Blog</h1>
         <div className="space-x-2">
           <button className="px-4 py-2 border rounded">Login</button>
@@ -21,7 +22,8 @@ const Home = () => {
             Sign Up
           </button>
         </div>
-      </header>
+      </header> */}
+      <Header/>
 
       <section className="flex justify-center my-6">
         <div className="relative w-full md:w-2/3">
