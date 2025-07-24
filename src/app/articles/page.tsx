@@ -2,8 +2,9 @@
 import PostCard, { Post } from "@/app/components/postCard/PostCard";
 import Header from "../components/header/Header";
 
-// ダミーデータ
+// ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
 const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
+  id: i + 1,
   title: `Post Title ${i + 1}`,
   category: "Category",
   author: "Author",
@@ -53,8 +54,8 @@ const Home = () => {
             cursor-pointer
           "
         >
-          {dummyPosts.map((post, index) => (
-            <PostCard key={index} post={post} />
+          {dummyPosts.map((post) => (
+            <PostCard key={post.id} post={post} />
           ))}
         </section>
 

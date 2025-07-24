@@ -1,8 +1,10 @@
 //型定義などで React.FC を使うので読み込む
 import React from "react";
+import Image from "next/image";
 
 // 投稿データの型を定義
 export interface Post {
+  id: number;
   title: string;
   category: string;
   author: string;
@@ -15,14 +17,17 @@ export interface PostCardProps {
   post: Post;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+//props.post.title という二重構造になる。型の書き方はchildren を勝手に含まないので意図しない props を受け取らない。React 公式もこちらを推奨
+const PostCard = ({ post }: PostCardProps) => {
   return (
     //rounded-lg → 少し角を丸める
     <div className="border rounded-lg p-3 shadow hover:shadow-md transition">
       {/* サムネイル */}
-      <img
+      <Image
         src={post.thumbnail}
         alt={post.title}
+        width={300}
+        height={200}
         //object-cover → 画像が縦横比を保ったまま枠いっぱいに収まる
         className="w-full h-40 object-cover rounded-md"
       />
