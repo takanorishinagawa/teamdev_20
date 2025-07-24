@@ -3,15 +3,16 @@ import Header from "@/app/components/header/Header";
 import Button from "@/app/components/button/Button";
 import Image from "next/image";
 import { CommentItem } from "@/app/components/comment/CommentItem";
+import { Comment } from "../../types/comment";
 
 export default function page() {
-  // コメントの型定義
-  type Comment = {
-    id: number;
-    username: string;
-    message: string;
-    timestamp: number;
-    avatar: string;
+  // ダミー記事
+  const postDetail = {
+    title: "Blog Title",
+    userIcon: "/images/user-image.png",
+    postImage: "/images/articleDetail/sample-image.jpg",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias temporibus debitis necessitatibus perferendis ea, eligendi iusto doloribus quo reprehenderit explicabo, voluptatem incidunt repellat, facilis quaerat! Eveniet maxime, dolorum laboriosam harum earum unde laborum? Consequatur nihil mollitia magnam cupiditate, iste fuga excepturi rem officiis minus beatae! Nulla adipisci numquam commodi minima.",
   };
 
   // ダミーコメント
@@ -22,7 +23,7 @@ export default function page() {
       message:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quae quia reiciendis fugit facere veritatis.",
       timestamp: 7,
-      avatar: "/icon/articleDetail/user-image.png",
+      avatar: "/images/user-image.png",
     },
     {
       id: 2,
@@ -30,7 +31,7 @@ export default function page() {
       message:
         "Reiciendis fugit facere veritatis quisquam porro iusto odit conseq untur pariatur.",
       timestamp: 5,
-      avatar: "/icon/articleDetail/user-image.png",
+      avatar: "/images/user-image.png",
     },
   ];
   return (
@@ -41,11 +42,11 @@ export default function page() {
         {/* タイトルとユーザーアイコン */}
         <div className="flex justify-between">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
-            Blog Title
+            {postDetail.title}
           </h1>
           <div>
             <Image
-              src="/images/articleDetail/user-image.png"
+              src={postDetail.userIcon}
               alt="ユーザーアイコン"
               width={50}
               height={50}
@@ -53,25 +54,17 @@ export default function page() {
           </div>
         </div>
         {/* 記事画像 */}
-        <div className="relative h-[300px] w-full">
+        <div className="relative h-[400px] w-full">
           <Image
-            src="/images/articleDetail/sample-image.jpg"
-            alt="投稿画像"
+            src={postDetail.postImage}
+            alt="記事画像"
             fill
             className="rounded object-cover"
           />
         </div>
 
         {/* 本文 */}
-        <p className="text-gray-800">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-          temporibus debitis necessitatibus perferendis ea, eligendi iusto
-          doloribus quo reprehenderit explicabo, voluptatem incidunt repellat,
-          facilis quaerat! Eveniet maxime, dolorum laboriosam harum earum unde
-          laborum? Consequatur nihil mollitia magnam cupiditate, iste fuga
-          excepturi rem officiis minus beatae! Nulla adipisci numquam commodi
-          minima.
-        </p>
+        <p className="text-gray-800">{postDetail.content}</p>
       </div>
       {/* 記事エリア end */}
 
@@ -80,12 +73,17 @@ export default function page() {
         <h2 className="text-xl">Comments</h2>
         {/* 入力欄 */}
         <div className="flex justify-between">
+          <label htmlFor="comment" className="sr-only">
+            コメント
+          </label>
           <input
             type="text"
+            id="comment"
+            name="comment"
             placeholder="Your Comment..."
             className="mr-5 w-full rounded-md border border-gray-300 px-3 text-gray-700 focus:ring-1 focus:ring-blue-400 focus:outline-none"
           />
-          <Button onClick={() => alert("コメントを入力しました！")} size="sm">
+          <Button type="submit" size="sm">
             Comment
           </Button>
         </div>

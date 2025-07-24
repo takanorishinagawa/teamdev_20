@@ -1,12 +1,5 @@
 import Image from "next/image";
-
-type Comment = {
-  id: number;
-  username: string;
-  message: string;
-  timestamp: number;
-  avatar: string;
-};
+import { Comment } from "../../types/comment";
 
 export const CommentItem = ({ comment }: { comment: Comment }) => {
   return (
