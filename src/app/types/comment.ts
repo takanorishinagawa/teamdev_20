@@ -2,6 +2,6 @@ export type Comment = {
   id: number;
   username: string;
   message: string;
-  timestamp: number;
+  createdAt: string;
   avatar: string;
 };

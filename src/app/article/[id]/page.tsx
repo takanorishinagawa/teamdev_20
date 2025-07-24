@@ -7,7 +7,7 @@ import { Comment } from "../../types/comment";
 
 export default function page() {
   // ダミー記事
-  const postDetail = {
+  const post = {
     title: "Blog Title",
     userIcon: "/images/user-image.png",
     postImage: "/images/articleDetail/sample-image.jpg",
@@ -22,7 +22,7 @@ export default function page() {
       username: "user1",
       message:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quae quia reiciendis fugit facere veritatis.",
-      timestamp: 7,
+      createdAt: "2025-07-24T06:30:00.000Z", // コメント記入日
       avatar: "/images/user-image.png",
     },
     {
@@ -30,23 +30,22 @@ export default function page() {
       username: "user2",
       message:
         "Reiciendis fugit facere veritatis quisquam porro iusto odit conseq untur pariatur.",
-      timestamp: 5,
+      createdAt: "2025-07-24T05:30:00.000Z",
       avatar: "/images/user-image.png",
     },
   ];
   return (
     <>
       <Header />
-      {/* 記事エリア */}
       <div className="mx-auto my-8 w-1/2 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
-        {/* タイトルとユーザーアイコン */}
+        {/* 記事タイトルとユーザーアイコン */}
         <div className="flex justify-between">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
-            {postDetail.title}
+            {post.title}
           </h1>
           <div>
             <Image
-              src={postDetail.userIcon}
+              src={post.userIcon}
               alt="ユーザーアイコン"
               width={50}
               height={50}
@@ -56,17 +55,15 @@ export default function page() {
         {/* 記事画像 */}
         <div className="relative h-[400px] w-full">
           <Image
-            src={postDetail.postImage}
+            src={post.postImage}
             alt="記事画像"
             fill
             className="rounded object-cover"
           />
         </div>
-
         {/* 本文 */}
-        <p className="text-gray-800">{postDetail.content}</p>
+        <p className="text-gray-800">{post.content}</p>
       </div>
-      {/* 記事エリア end */}
 
       {/* コメントエリア */}
       <div className="mx-auto my-8 w-1/3 space-y-4">
