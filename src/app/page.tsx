@@ -1,8 +1,9 @@
-// ログインのセッション確認後に遷移
+import Header from "./components/header/Header";
 
-import { redirect } from "next/navigation";
-
-export default function PageTop() {
-  redirect("/article/home");
-  return;
+export default function Home() {
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }

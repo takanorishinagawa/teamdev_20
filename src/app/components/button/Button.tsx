@@ -7,13 +7,10 @@ import Link from "next/link";
 import React from "react";
 
 type ButtonProps = {
-  children: React.ReactNode;
-  href?: string; 
-  onClick?: () => void;
-  className?: string;
+  href?: string; // ここで受け取る
   variant?: "Blue" | "DarkBlue" | "white";
   size?: "sm" | "md" | "lg";
-};
+} & React.ComponentProps<"button">;
 
 const Button = ({
   children,
@@ -41,7 +38,11 @@ const Button = ({
     md: "px-10 py-3 text-xl font-bold",
 
     // 最大（記事投稿ボタンなど）
+<<<<<<< HEAD
     lg: "px-10 py-5 text-2xl font-bold",
+=======
+    lg: "",
+>>>>>>> main
   }[size];
 
   // ボタン共通css
