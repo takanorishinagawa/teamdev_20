@@ -20,7 +20,6 @@ export interface PostCardProps {
 //props.post.title という二重構造になる。型の書き方はchildren を勝手に含まないので意図しない props を受け取らない。React 公式もこちらを推奨
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    //rounded-lg → 少し角を丸める
     <div className="border rounded-lg p-3 shadow hover:shadow-md transition">
       {/* サムネイル */}
       <Image
@@ -28,7 +27,6 @@ const PostCard = ({ post }: PostCardProps) => {
         alt={post.title}
         width={300}
         height={200}
-        //object-cover → 画像が縦横比を保ったまま枠いっぱいに収まる
         className="w-full h-40 object-cover rounded-md"
       />
 

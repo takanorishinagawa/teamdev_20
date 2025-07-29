@@ -7,13 +7,10 @@ import Link from "next/link";
 import React from "react";
 
 type ButtonProps = {
-  children: React.ReactNode;
   href?: string; // ここで受け取る
-  onClick?: () => void;
-  className?: string;
   variant?: "Blue" | "DarkBlue" | "white";
   size?: "sm" | "md" | "lg";
-};
+} & React.ComponentProps<"button">;
 
 const Button = ({
   children,

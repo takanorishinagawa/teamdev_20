@@ -19,7 +19,6 @@ const Home = () => {
 
       <main className="p-8">
         <section className="flex justify-center my-6 gap-3">
-          {/* flex items-center */}
           {/* 検索バー */}
           <div className="w-full max-w-md">
             <input
@@ -33,23 +32,22 @@ const Home = () => {
           <span
             className="
                 flex items-center
-                cursor-pointer 
-                transition duration-200 
+                cursor-pointer
+                transition duration-200
                 hover:-translate-y-1
               "
             onClick={() => alert("検索アイコンがクリックされました！")}
           >
             🔍
           </span>
-          {/* </div> */}
         </section>
 
         {/* 投稿カードのグリッド */}
         <section
           className="
-            grid 
-            sm:grid-cols-2 
-            md:grid-cols-3 
+            grid
+            sm:grid-cols-2
+            md:grid-cols-3
             gap-6
             cursor-pointer
           "

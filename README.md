@@ -51,12 +51,6 @@ git commit -m 'Top画面を作成'
 git commit -m 'Add top page layout'
 ```
 
-### 4. Pull Request
-
-#### 1. プルリクエスト前に行うこと
-
-- 作業ブランチで以下を実行してください：
-
 ### 4. PullRequest
 
 #### 1. プルリクエスト前に行うこと
