@@ -42,7 +42,7 @@ const Button = ({
   }[size];
 
   // ボタン共通css
-  const baseClass = "transform rounded-full";
+  const baseClass = "transform rounded-full hover:cursor-pointer";
 
   // 全てのcssまとめ
   const combinedClass = `${variantClass} ${sizeClass} ${baseClass} ${className}`;
