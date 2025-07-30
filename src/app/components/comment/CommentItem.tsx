@@ -3,8 +3,6 @@ import { Comment } from "../../types/comment";
 import { formatTimeAgo } from "@/app/utils/formatTimeAgo";
 
 export const CommentItem = ({ comment }: { comment: Comment }) => {
-
-
   return (
     <div className="flex items-center space-x-8 rounded-md bg-gray-100 p-6 shadow-md">
       <div className="w-[70px] flex-shrink-0 text-center">
