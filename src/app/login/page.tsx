@@ -6,8 +6,8 @@ import Button from "../components/button/Button";
 import FormInput from "../components/field/FormInput";
 
 export default function page() {
-    //FormInputの要素
-    const inputs = [
+  //FormInputの要素
+  const inputs = [
     { label: "email", placeholder: "Enter your email" },
     { label: "password", placeholder: "Enter your password" },
   ];
@@ -19,11 +19,7 @@ export default function page() {
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign In</h1>
           <div className="mx-16 text-left">
             {inputs.map(({ label, placeholder }) => (
-              <FormInput
-                key={label}
-                label={label}
-                placeholder={placeholder}
-              />
+              <FormInput key={label} label={label} placeholder={placeholder} />
             ))}
           </div>
 

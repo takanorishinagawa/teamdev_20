@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'via.placeholder.com', // ✅ ここを許可する
+        protocol: "https",
+        hostname: "via.placeholder.com",
       },
     ],
   },
