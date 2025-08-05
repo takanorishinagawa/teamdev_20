@@ -15,7 +15,7 @@ export default function page() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="flex justify-center">
         <div className="w-1/3 text-center">
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign Up</h1>

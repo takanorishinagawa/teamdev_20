@@ -36,7 +36,7 @@ export default function page() {
   ];
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="mx-auto my-8 w-1/2 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
         <div className="flex justify-between">
