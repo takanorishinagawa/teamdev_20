@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Header from "../components/header/Header";
 import Button from "../components/button/Button";
 import FormInput from "../components/field/FormInput";
 
@@ -13,7 +12,6 @@ export default function page() {
   ];
   return (
     <>
-      {/* <Header /> */}
       <main className="flex justify-center">
         <div className="w-1/3 text-center">
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign In</h1>
