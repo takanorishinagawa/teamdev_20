@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
     "@tailwindcss/postcss": "^4.1.11",
     "next": "15.3.5",
     "react": "^19.0.0",
@@ -26,6 +27,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "supabase": "^2.33.9",
     "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }

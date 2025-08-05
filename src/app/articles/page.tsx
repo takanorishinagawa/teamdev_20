@@ -18,24 +18,19 @@ const Home = () => {
       <Header />
 
       <main className="p-8">
-        <section className="flex justify-center my-6 gap-3">
+        <section className="my-6 flex justify-center gap-3">
           {/* 検索バー */}
           <div className="w-full max-w-md">
             <input
               type="text"
               placeholder="Search..."
-              className="w-full p-3 border rounded-full focus:ring-blue-400"
+              className="w-full rounded-full border p-3 focus:ring-blue-400"
             />
           </div>
 
           {/* 検索バーのすぐ右に虫眼鏡アイコン */}
           <span
-            className="
-                flex items-center
-                cursor-pointer
-                transition duration-200
-                hover:-translate-y-1
-              "
+            className="flex cursor-pointer items-center transition duration-200 hover:-translate-y-1"
             onClick={() => alert("検索アイコンがクリックされました！")}
           >
             🔍
@@ -43,22 +38,14 @@ const Home = () => {
         </section>
 
         {/* 投稿カードのグリッド */}
-        <section
-          className="
-            grid
-            sm:grid-cols-2
-            md:grid-cols-3
-            gap-6
-            cursor-pointer
-          "
-        >
+        <section className="grid cursor-pointer gap-6 sm:grid-cols-2 md:grid-cols-3">
           {dummyPosts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </section>
 
         {/* ページネーション */}
-        <div className="flex justify-center my-6">
+        <div className="my-6 flex justify-center">
           <p>ページネーション</p>
         </div>
       </main>

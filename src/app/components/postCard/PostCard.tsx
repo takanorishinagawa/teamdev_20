@@ -20,24 +20,24 @@ export interface PostCardProps {
 //props.post.title という二重構造になる。型の書き方はchildren を勝手に含まないので意図しない props を受け取らない。React 公式もこちらを推奨
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    <div className="border rounded-lg p-3 shadow hover:shadow-md transition">
+    <div className="rounded-lg border p-3 shadow transition hover:shadow-md">
       {/* サムネイル */}
       <Image
         src={post.thumbnail}
         alt={post.title}
         width={300}
         height={200}
-        className="w-full h-40 object-cover rounded-md"
+        className="h-40 w-full rounded-md object-cover"
       />
 
       {/* タイトルとカテゴリ */}
-      <div className="flex justify-between items-center mt-2">
+      <div className="mt-2 flex items-center justify-between">
         <h2 className="font-semibold">{post.title}</h2>
-        <span className="text-blue-500 text-sm">{post.category}</span>
+        <span className="text-sm text-blue-500">{post.category}</span>
       </div>
 
       {/* 著者と時間 */}
-      <p className="text-gray-500 text-sm">
+      <p className="text-sm text-gray-500">
         {post.author} ・ {post.date}
       </p>
     </div>
