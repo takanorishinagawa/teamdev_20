@@ -17,8 +17,8 @@ const YourPost = () => {
       <main className="p-8">
         <div className="flex flex-col gap-10">
           {/* タイトル */}
-          <div className="flex items-center justify-center text-2xl">
-            <h2>Your Post</h2>
+          <div className="flex items-center justify-center text-3xl">
+            <h2 className="font-semibold">Your Post</h2>
           </div>
 
           {/* 投稿カードのグリッド */}
