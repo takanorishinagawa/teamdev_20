@@ -8,9 +8,10 @@ import React from "react";
 const EditArticlePage = () => {
   return (
     <div>
-      <h1>Edit Article</h1>
-      {/* フォームやデータ取得処理をここに追加 */}
-      <ArticleForm/>
+      <ArticleForm
+        type="edit"
+        onSubmit={() => alert("記事を更新！")}
+      />
     </div>
   );
 };
