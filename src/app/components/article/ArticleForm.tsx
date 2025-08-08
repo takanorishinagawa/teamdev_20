@@ -8,9 +8,19 @@ import RectButton from "../button/RectButton";
 type ArticleFormProps = {
     type: "create" | "edit";
     onSubmit: () => void;
+    defaultTitle?: string;
+    defaultContent?: string;
+    defaultCategory?: string;
+
 }
 
-const ArticleForm = ({ type, onSubmit }: ArticleFormProps) => {
+const ArticleForm = ({ 
+  type, 
+  onSubmit,
+  defaultTitle = "",
+  defaultContent = "",
+  defaultCategory = "",
+}: ArticleFormProps) => {
   return (
     <div>
       <div className="p-15">
@@ -18,6 +28,7 @@ const ArticleForm = ({ type, onSubmit }: ArticleFormProps) => {
           {/* タイトル */}
           <input
             type="text"
+            defaultValue={defaultTitle}
             className="w-full max-w-[1100px] min-w-[600px] text-5xl font-semibold"
             placeholder="Title"
           />
@@ -51,6 +62,7 @@ const ArticleForm = ({ type, onSubmit }: ArticleFormProps) => {
               <select
                 name="category"
                 id="category"
+                defaultValue={defaultCategory}
                 className="w-60 rounded-md border border-[#7777] p-3"
               >
                 <option>Value</option>
@@ -62,6 +74,7 @@ const ArticleForm = ({ type, onSubmit }: ArticleFormProps) => {
 
           {/* 投稿内容 */}
           <textarea
+            defaultValue={defaultContent}
             className="min-h-[300px] w-full max-w-[1200px] min-w-[600px] rounded-lg border-none bg-[#D9D9D9]/25 p-5 text-lg text-black"
             style={{ boxShadow: "2px 2px 10px 0 rgba(0, 0, 0, 0.25)" }}
           ></textarea>
