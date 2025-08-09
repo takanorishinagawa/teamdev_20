@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Header from "./components/header/Header";
 import "./globals.css";
 import Header from "./components/header/Header";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         {/* ヘッダー */}
         <Header />
 
+        {/* メイン画面 */}
         {children}
       </body>
     </html>

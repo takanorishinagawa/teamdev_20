@@ -33,7 +33,7 @@ const page = () => {
               {/* アップロードボタン */}
               <Button
                 variant="Blue"
-                size="lg"
+                size="md"
                 onClick={() => alert("画像をアップロード！")}
               >
                 Upload Image
