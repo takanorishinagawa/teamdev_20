@@ -14,8 +14,8 @@ type ArticleFormProps = {
 
 }
 
-const ArticleForm = ({ 
-  type, 
+const ArticleForm = ({
+  type,
   onSubmit,
   defaultTitle = "",
   defaultContent = "",

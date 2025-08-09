@@ -1,6 +1,5 @@
 "use client";
 import PostCard, { Post } from "@/app/components/postCard/PostCard";
-import Header from "../components/header/Header";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
 const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
@@ -15,8 +14,6 @@ const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
 const Home = () => {
   return (
     <>
-      <Header />
-
       <main className="p-8">
         <section className="my-6 flex justify-center gap-3">
           {/* 検索バー */}

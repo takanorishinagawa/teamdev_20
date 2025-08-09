@@ -1,9 +1,11 @@
-import Header from "./components/header/Header";
+"use client";
 
-export default function Home() {
+import Home from "./articles/page";
+
+export default function HomePage() {
   return (
-    <div>
-      <Header />
-    </div>
+    <main>
+      <Home />
+    </main>
   );
 }
