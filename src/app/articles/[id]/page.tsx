@@ -1,8 +1,7 @@
 "use client";
-import Header from "@/app/components/header/Header";
 import Button from "@/app/components/button/Button";
-import Image from "next/image";
 import { CommentItem } from "@/app/components/comment/CommentItem";
+import Image from "next/image";
 import { Comment } from "../../types/comment";
 
 export default function page() {
@@ -36,7 +35,6 @@ export default function page() {
   ];
   return (
     <>
-      {/* <Header /> */}
       <div className="mx-auto my-8 w-1/2 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
         <div className="flex justify-between">
