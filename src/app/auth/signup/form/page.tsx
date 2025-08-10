@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Button from "../components/button/Button";
-import FormInput from "../components/field/FormInput";
+import Button from "../../../components/button/Button";
+import FormInput from "../../../components/field/FormInput";
 
 export default function SignUpPage() {
   //FormInputの要素
