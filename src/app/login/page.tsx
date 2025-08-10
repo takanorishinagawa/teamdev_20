@@ -4,7 +4,7 @@ import Link from "next/link";
 import Button from "../components/button/Button";
 import FormInput from "../components/field/FormInput";
 
-export default function page() {
+export default function LoginPage() {
   //FormInputの要素
   const inputs = [
     { label: "email", placeholder: "Enter your email" },
