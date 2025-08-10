@@ -1,10 +1,11 @@
-// TODO:バリデーション実装
-
 "use client";
 
 import Link from "next/link";
+
 import Button from "../../../components/button/Button";
 import FormInput from "../../../components/field/FormInput";
+
+// TODO:バリデーション実装
 
 export default function SignUpPage() {
   //FormInputの要素
