@@ -13,7 +13,6 @@ import { createClient } from "@/utils/supabase/clients";
 import Button from "../../../components/button/Button";
 import FormInput from "../../../components/field/FormInput";
 
-// TODO:バリデーション実装
 type Schema = z.infer<typeof schema>;
 
 const schema = z.object({
