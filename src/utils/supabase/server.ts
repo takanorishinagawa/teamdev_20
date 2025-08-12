@@ -1,11 +1,11 @@
 // ===== Supabase クライアント（サーバー側） =====
 // 📍Server Component や API Route で使用
 // Next.js の cookies() を使ってセッション管理された Supabase クライアントを生成
+import { cookies } from "next/headers";
 
+import type { Database } from "@/types/database.types";
 import { createServerClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-import type { Database } from "../../../supabase/database.types";
 
 export async function createClient(): Promise<SupabaseClient<Database>> {
   const cookieStore = await cookies();
