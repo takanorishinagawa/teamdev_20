@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
@@ -24,14 +26,16 @@ const schema = z.object({
   password: z.string().min(6, { message: "6文字以上入力する必要があります" }),
 });
 
-const onSubmit = async (data: Schema) => {
-  // try {
-  // } catch {}
-  console.log("OK:", data);
-};
-
 export default function LoginPage() {
   const supabase = createClient();
+  const router = useRouter();
+
+  const [message, setMessage] = useState<
+    | {
+        text: string;
+      }
+    | undefined
+  >(undefined);
 
   const {
     register,
@@ -41,6 +45,33 @@ export default function LoginPage() {
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(schema),
   });
+
+  const onSubmit = async (data: Schema) => {
+    try {
+      const { email, password } = data;
+
+      const { error: signinError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signinError) {
+        console.error("ログインエラー", signinError.message);
+        setMessage({
+          text: "ログインに失敗しました。もう一度お試しください。",
+        });
+        return;
+      }
+
+      router.replace("/articles");
+      // TODO toast.success("ログインしました。");
+    } catch (error) {
+      setMessage({
+        text: "予期せぬエラーが発生しました。",
+      });
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -82,9 +113,11 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-10">
-              <Button variant="Blue" size="md" type="submit">
+              <Button variant="Blue" size="md" type="submit"  className="mb-3">
                 Login
               </Button>
+
+              {message && <div className="text-red-500">{message.text}</div>}
             </div>
           </form>
 

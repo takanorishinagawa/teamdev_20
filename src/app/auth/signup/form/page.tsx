@@ -93,7 +93,13 @@ export default function SignUpPage() {
         type: "success",
         text: "確認メールを送信しました！",
       });
-    } catch {}
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: "予期せぬエラーが発生しました。",
+      });
+      console.error(error);
+    }
   };
 
   return (
