@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
@@ -30,6 +31,14 @@ const schema = z.object({
 export default function SignUpPage() {
   const supabase = createClient();
 
+  const [message, setMessage] = useState<
+    | {
+        type: "success" | "error";
+        text: string;
+      }
+    | undefined
+  >(undefined);
+
   const {
     register,
     handleSubmit,
@@ -40,9 +49,51 @@ export default function SignUpPage() {
   });
 
   const onSubmit = async (data: Schema) => {
-    // try {
-    // } catch {}
-    console.log("OK:", data);
+    try {
+      const { name, email, password } = data;
+
+      const { data: signupData, error: signupError } =
+        await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            // TODO 新規登録のメール送信時、認証先を指定すること。(vercelデプロイ後のURL)
+            emailRedirectTo: "",
+          },
+        });
+
+      const userId = signupData.user?.id;
+
+      if (signupError) {
+        console.error("登録エラー", signupError.message);
+        setMessage({
+          type: "error",
+          text: "登録に失敗しました。もう一度お試しください。",
+        });
+        return;
+      }
+
+      const { error: usersError } = await supabase.from("users").insert({
+        id: userId,
+        name,
+        email,
+        created_at: new Date().toISOString(),
+      });
+
+      if (usersError) {
+        console.error("ユーザー登録エラー", usersError.message);
+        setMessage({
+          type: "error",
+          text: `登録に失敗しました：${usersError.message}`,
+        });
+        return;
+      }
+
+      setMessage({
+        type: "success",
+        text: "確認メールを送信しました！",
+      });
+    } catch {}
   };
 
   return (
@@ -99,9 +150,19 @@ export default function SignUpPage() {
             </div>
 
             <div className="mt-10">
-              <Button variant="Blue" size="md" type="submit">
+              <Button variant="Blue" size="md" type="submit" className="mb-3">
                 Login
               </Button>
+
+              {message && (
+                <div
+                  className={
+                    message.type === "error" ? "text-red-500" : "text-green-600"
+                  }
+                >
+                  {message.text}
+                </div>
+              )}
             </div>
           </form>
 
