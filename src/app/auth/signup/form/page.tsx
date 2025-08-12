@@ -75,9 +75,9 @@ export default function SignUpPage() {
                   type="email"
                   {...register("email")}
                 />
-                {errors.name && (
+                {errors.email && (
                   <p className="mt-1 px-4 text-sm text-red-500">
-                    {errors.name.message}
+                    {errors.email.message}
                   </p>
                 )}
               </div>
@@ -90,9 +90,9 @@ export default function SignUpPage() {
                   type="password"
                   {...register("password")}
                 />
-                {errors.name && (
+                {errors.password && (
                   <p className="mt-1 px-4 text-sm text-red-500">
-                    {errors.name.message}
+                    {errors.password.message}
                   </p>
                 )}
               </div>
@@ -107,7 +107,7 @@ export default function SignUpPage() {
 
           <div className="mt-4 flex justify-center space-x-3 font-bold">
             <p className="">Already have an account?</p>
-            <Link href="auth/login">
+            <Link href="/auth/login">
               <p className="text-sky-500 hover:text-sky-300">Login</p>
             </Link>
           </div>
