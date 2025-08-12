@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,8 +14,6 @@ import { createClient } from "@/utils/supabase/clients";
 
 import Button from "../../../components/button/Button";
 import FormInput from "../../../components/field/FormInput";
-
-// TODO:バリデーション実装
 
 type Schema = z.infer<typeof schema>;
 
@@ -64,7 +63,7 @@ export default function LoginPage() {
       }
 
       router.replace("/articles");
-      // TODO toast.success("ログインしました。");
+      toast.success("ログインしました。");
     } catch (error) {
       setMessage({
         text: "予期せぬエラーが発生しました。",
@@ -113,7 +112,7 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-10">
-              <Button variant="Blue" size="md" type="submit"  className="mb-3">
+              <Button variant="Blue" size="md" type="submit" className="mb-3">
                 Login
               </Button>
 
