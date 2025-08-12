@@ -1,10 +1,11 @@
 "use client";
 
-// ボタンコンポーネント
-// 呼び出し側でカラー、サイズを選択
+import React from "react";
 
 import Link from "next/link";
-import React from "react";
+
+// ボタンコンポーネント
+// 呼び出し側でカラー、サイズを選択
 
 type ButtonProps = {
   href?: string; // ここで受け取る
