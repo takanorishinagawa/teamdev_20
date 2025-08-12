@@ -40,8 +40,9 @@ export default function SignUpPage() {
   });
 
   const onSubmit = async (data: Schema) => {
-    try {
-    } catch {}
+    // try {
+    // } catch {}
+    console.log("OK:", data);
   };
 
   return (
@@ -49,54 +50,60 @@ export default function SignUpPage() {
       <main className="flex justify-center">
         <div className="w-1/3 text-center">
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign Up</h1>
-          <div className="mx-16 text-left">
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-5 mx-16 text-left">
               {/* ユーザー名 */}
-              <FormInput
-                label="name"
-                placeholder="Enter your name"
-                type="text"
-                {...register("name")}
-              />
-              {errors.name && (
-                <p className="mt-1 px-4 text-sm text-red-500">
-                  {errors.name.message}
-                </p>
-              )}
+              <div className="flex flex-col gap-3">
+                <FormInput
+                  label="name"
+                  placeholder="Enter your name"
+                  type="text"
+                  {...register("name")}
+                />
+                {errors.name && (
+                  <p className="mt-1 px-4 text-sm text-red-500">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
 
               {/* メールアドレス */}
-              <FormInput
-                label="email"
-                placeholder="Enter your email"
-                type="email"
-                {...register("email")}
-              />
-              {errors.name && (
-                <p className="mt-1 px-4 text-sm text-red-500">
-                  {errors.name.message}
-                </p>
-              )}
+              <div className="flex flex-col gap-3">
+                <FormInput
+                  label="email"
+                  placeholder="Enter your email"
+                  type="email"
+                  {...register("email")}
+                />
+                {errors.name && (
+                  <p className="mt-1 px-4 text-sm text-red-500">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
 
               {/* パスワード */}
-              <FormInput
-                label="password"
-                placeholder="Enter your password"
-                type="password"
-                {...register("password")}
-              />
-              {errors.name && (
-                <p className="mt-1 px-4 text-sm text-red-500">
-                  {errors.name.message}
-                </p>
-              )}
-            </form>
-          </div>
+              <div className="flex flex-col gap-3">
+                <FormInput
+                  label="password"
+                  placeholder="Enter your password"
+                  type="password"
+                  {...register("password")}
+                />
+                {errors.name && (
+                  <p className="mt-1 px-4 text-sm text-red-500">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+            </div>
 
-          <div className="mt-10">
-            <Button variant="Blue" size="md" type="submit">
-              Login
-            </Button>
-          </div>
+            <div className="mt-10">
+              <Button variant="Blue" size="md" type="submit">
+                Login
+              </Button>
+            </div>
+          </form>
 
           <div className="mt-4 flex justify-center space-x-3 font-bold">
             <p className="">Already have an account?</p>
