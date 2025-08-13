@@ -1,4 +1,5 @@
 "use client";
+
 import PostCard, { Post } from "@/app/components/postCard/PostCard";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
@@ -12,6 +13,9 @@ const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
 }));
 
 const Home = () => {
+  // TODO 記事投稿内容実装次第変更すること。
+  const items = dummyPosts;
+
   return (
     <>
       <main className="p-8">
