@@ -1,16 +1,7 @@
 //型定義などで React.FC を使うので読み込む
-import React from "react";
 import Image from "next/image";
 
-// 投稿データの型を定義
-export interface Post {
-  id: number;
-  title: string;
-  category: string;
-  author: string;
-  date: string;
-  thumbnail: string;
-}
+import type { Post } from "@/app/types/types";
 
 //PostCard コンポーネントには post という名前で Post 型のデータが渡ってくる
 export interface PostCardProps {

@@ -1,15 +1,19 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
+import type { Post } from "@/app/types/types";
+
+import PostCard from "../postCard/PostCard";
+
 // 📍ページネーション用
 // react-paginate を採用
 
 type PaginatedItemsProps = {
-  items: [];
+  items: Post[];
   itemsPerPage: number;
 };
 
-function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
+export function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
   // 現在のアイテムの開始位置（オフセット）を管理
   const [itemOffset, setItemOffset] = useState(0);
 
@@ -38,8 +42,8 @@ function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
     <>
       {/* 投稿の表示部分 */}
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {currentItems.map((item, index) => (
-          <div key={index}>{item}</div>
+        {currentItems.map((post) => (
+          <PostCard key={post.id} post={post} />
         ))}
       </div>
 
