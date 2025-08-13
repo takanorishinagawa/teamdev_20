@@ -20,9 +20,13 @@ export default function Header() {
             >
               Create
             </Button>
-            <Button href="/auth/signout/form" variant="DarkBlue" size="sm">
+
+            {/* TODO ログアウトボタンを仮配置 */}
+            <Button href="/auth/signout/form" variant="white" size="sm">
               Log out
             </Button>
+
+            {/* TODO プロフィール画像を配置 */}
           </>
         ) : (
           <>

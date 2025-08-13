@@ -56,7 +56,7 @@ const SignOutPage = () => {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-[480px] min-w-[320px] flex-col gap-5 bg-[#F3F0EB]">
+    <div className="mx-auto flex w-full flex-col gap-5">
       <form
         className="flex w-full flex-col items-center gap-5 p-5"
         onSubmit={handleSubmit(onSubmit)}
@@ -66,13 +66,18 @@ const SignOutPage = () => {
             <p>本当にログアウトしますか？</p>
           </div>
 
-          {/* ボタン */}
-          <Button type="submit">ログアウト</Button>
+          <Button type="submit" size="sm">
+            ログアウト
+          </Button>
 
           {/* メッセージ表示 */}
           {message && (
             <p className="mt-1 px-4 text-sm text-red-500">{message.text}</p>
           )}
+
+          <Button href="/articles" size="sm">
+            戻る
+          </Button>
         </div>
       </form>
     </div>
