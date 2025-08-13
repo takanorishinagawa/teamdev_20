@@ -1,11 +1,10 @@
 "use client";
 
 import { PaginatedItems } from "../components/pagination/PaginatedItems";
-import PostCard from "../components/postCard/PostCard";
 import type { Post } from "../types/types";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
-const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
+const dummyPosts: Post[] = Array.from({ length: 100 }).map((_, i) => ({
   id: i + 1,
   title: `Post Title ${i + 1}`,
   category: "Category",
@@ -40,17 +39,8 @@ const Home = () => {
           </span>
         </section>
 
-        {/* 投稿カードのグリッド */}
-        <section className="grid cursor-pointer gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {dummyPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </section>
-
         {/* ページネーション */}
-        <div className="my-6 flex justify-center">
-          <PaginatedItems items={dummyPosts} itemsPerPage={3} />
-        </div>
+        <PaginatedItems items={items} itemsPerPage={9} />
       </main>
     </>
   );

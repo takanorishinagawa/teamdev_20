@@ -14,23 +14,17 @@ type PaginatedItemsProps = {
 };
 
 export function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
-  // 現在のアイテムの開始位置（オフセット）を管理
   const [itemOffset, setItemOffset] = useState(0);
 
-  // 表示するアイテムの終了位置を計算
   const endOffset = itemOffset + itemsPerPage;
+
   console.log(`表示範囲: ${itemOffset} 〜 ${endOffset}`);
 
-  // 現在のページに表示するアイテムをスライス
   const currentItems = items.slice(itemOffset, endOffset);
 
-  // 総ページ数を計算
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
-  // ===== ページクリック時の処理 =====
   const handlePageClick = (event: { selected: number }) => {
-    // 新しい開始位置を計算
-    // selectedは0始まりのページ番号
     const newOffset = (event.selected * itemsPerPage) % items.length;
     console.log(
       `選択されたページ番号: ${event.selected}, 新しい開始位置: ${newOffset}`,
@@ -40,23 +34,33 @@ export function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
 
   return (
     <>
-      {/* 投稿の表示部分 */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {currentItems.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </div>
+      <div className="flex flex-col gap-5">
+        {/* 投稿の表示部分 */}
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {currentItems.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
 
-      {/* ページネーションUI */}
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick} // ページ変更時に呼ばれる関数
-        pageRangeDisplayed={5} // 現在ページ周辺に表示するページ数
-        pageCount={pageCount} // 総ページ数
-        previousLabel="< previous"
-        renderOnZeroPageCount={null} // ページが0件のときの表示
-      />
+        <div className="text-center pt-10">
+          {/* ページネーションUI */}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=" >"
+            onPageChange={handlePageClick} // ページ変更時に呼ばれる関数
+            pageRangeDisplayed={5} // 現在ページ周辺に表示するページ数
+            pageCount={pageCount} // 総ページ数
+            previousLabel="< "
+            renderOnZeroPageCount={null} // ページが0件のときの表示
+            // ===== css =====
+            containerClassName="flex items-center gap-2 justify-center" // 全体を横並び中央
+            pageLinkClassName="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-300" // 各ページ番号
+            activeLinkClassName="bg-blue-500 text-white" // アクティブページ
+            previousLinkClassName="mx-10 px-3 py-1 rounded hover:bg-gray-200 font-semibold" // <ボタン
+            nextLinkClassName="mx-10 px-3 py-1 rounded hover:bg-gray-200 font-semibold" // >ボタン
+          />
+        </div>
+      </div>
     </>
   );
 }
