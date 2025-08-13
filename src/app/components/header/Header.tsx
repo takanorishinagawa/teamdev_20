@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import useUserStore from "@/store/useUserStore";
 import type { Session } from "@supabase/supabase-js";
 
 import { createClient } from "@/utils/supabase/clients";
@@ -13,25 +14,48 @@ export default function Header() {
 
   const [session, setSession] = useState<Session | null>(null);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+  const { user } = useUserStore();
 
-    // const { data: loginData } = supabase.auth.onAuthStateChange(
-    //   (_event, newSession) => {
-    //     setSession(newSession);
-    //   },
-    // );
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data }) => setSession(data.session));
 
-    // // クリーンアップ
-    // return () => {
-    //   loginData.subscription.unsubscribe();
-    // };
-  }, [supabase]);
+  //   // const { data: loginData } = supabase.auth.onAuthStateChange(
+  //   //   (_event, newSession) => {
+  //   //     setSession(newSession);
+  //   //   },
+  //   // );
+
+  //   // // クリーンアップ
+  //   // return () => {
+  //   //   loginData.subscription.unsubscribe();
+  //   // };
+  // }, [supabase]);
 
   return (
     <header className="w-full">
       <div className="flex h-16 items-center justify-end gap-6 bg-blue-100 pr-10 font-bold">
-        {session ? (
+        {/* {session ? (
+          <Button
+            // TODO 記事作成ページへ遷移
+            href=""
+            variant="DarkBlue"
+            size="sm"
+          >
+            Create
+          </Button>
+        ) : (
+          <>
+            <Button href="/auth/login" variant="white" size="sm">
+              Login
+            </Button>
+            <Button href="/auth/signup" variant="DarkBlue" size="sm">
+              Sign Up
+            </Button>
+          </>
+          
+        )} */}
+
+        {user ? (
           <Button
             // TODO 記事作成ページへ遷移
             href=""

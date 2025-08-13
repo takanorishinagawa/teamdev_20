@@ -3,6 +3,10 @@ import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import ClientUserSetter from "@/components/ClientUserSetter";
+
+import { getCurrentUser } from "@/utils/supabase/getCurrentUser";
+
 import Header from "./components/header/Header";
 import "./globals.css";
 
@@ -21,14 +25,17 @@ export const metadata: Metadata = {
   description: "チーム開発#20",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { session, users } = await getCurrentUser();
+
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ClientUserSetter session={session} users={users} />
         {/* ヘッダー */}
         <Header />
 
