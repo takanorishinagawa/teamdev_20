@@ -14,7 +14,7 @@ export default function Header() {
           <>
             <Button
               // TODO 記事作成ページへ遷移
-              href=""
+              href="/articles/create"
               variant="DarkBlue"
               size="sm"
             >
