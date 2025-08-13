@@ -1,8 +1,11 @@
 "use client";
+
+import Image from "next/image";
+
 import Button from "@/app/components/button/Button";
 import { CommentItem } from "@/app/components/comment/CommentItem";
-import Image from "next/image";
-import { Comment } from "../../types/comment";
+
+import { Comment } from "../../types/types";
 
 export default function page() {
   // ダミー記事

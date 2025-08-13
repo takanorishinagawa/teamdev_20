@@ -1,6 +1,8 @@
 "use client";
 
-import PostCard, { Post } from "@/app/components/postCard/PostCard";
+import { PaginatedItems } from "../components/pagination/PaginatedItems";
+import PostCard from "../components/postCard/PostCard";
+import type { Post } from "../types/types";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
 const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
@@ -47,7 +49,7 @@ const Home = () => {
 
         {/* ページネーション */}
         <div className="my-6 flex justify-center">
-          <p>ページネーション</p>
+          <PaginatedItems items={dummyPosts} itemsPerPage={3} />
         </div>
       </main>
     </>
