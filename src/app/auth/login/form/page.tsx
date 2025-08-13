@@ -69,6 +69,8 @@ export default function LoginPage() {
         text: "予期せぬエラーが発生しました。",
       });
       console.error(error);
+    } finally {
+      router.refresh();
     }
   };
 
