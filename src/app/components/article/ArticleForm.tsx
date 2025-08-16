@@ -25,6 +25,7 @@ const schema = z.object({
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
+  saved_date: z.string().min(1, { message: "日付を選択してください。" }),
   content: z
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
@@ -45,7 +46,10 @@ const ArticleForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { title: "" },
+    defaultValues: {
+      title: "",
+      saved_date: new Date().toISOString().split("T")[0],
+    },
     resolver: zodResolver(schema),
   });
 
@@ -98,10 +102,15 @@ const ArticleForm = ({
                 <label htmlFor="add-date">Date Added</label>
                 <input
                   type="date"
-                  name="add-date"
                   defaultValue={defaultCategory}
                   className="w-60 rounded-md border border-[#7777] p-3"
+                  {...register("saved_date")}
                 ></input>
+                {errors.saved_date && (
+                  <p className="mt-1 px-4 text-sm text-red-500">
+                    {errors.saved_date.message}
+                  </p>
+                )}
               </div>
 
               {/* カテゴリー */}
@@ -134,7 +143,7 @@ const ArticleForm = ({
 
             {/* 記事作成ボタン */}
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end">
-              <RectButton onClick={onSubmit}>
+              <RectButton onClick={onSubmit} type="submit">
                 {type === "create" ? "Create" : "Update"}
               </RectButton>
             </div>
