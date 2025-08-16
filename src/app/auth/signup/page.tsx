@@ -1,10 +1,11 @@
-// サインアップ機能実装
-// フロントページは、formへ格納
-
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
+import { createClient } from "@/utils/supabase/server";
+
 import SignUpPage from "./form/page";
+
+// サインアップ機能実装
+// フロントページは、formへ格納
 
 export default async function SignUpAuthPage() {
   const supabase = await createClient();
