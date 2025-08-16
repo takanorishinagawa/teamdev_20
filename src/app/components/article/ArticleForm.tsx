@@ -2,16 +2,10 @@
 
 import Image from "next/image";
 
+import type { ArticleFormProps } from "@/app/types/types";
+
 import Button from "../button/Button";
 import RectButton from "../button/RectButton";
-
-type ArticleFormProps = {
-  type: "create" | "edit";
-  onSubmit: () => void;
-  defaultTitle?: string;
-  defaultContent?: string;
-  defaultCategory?: string;
-};
 
 const ArticleForm = ({
   type,

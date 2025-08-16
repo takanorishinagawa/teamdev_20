@@ -1,3 +1,4 @@
+// 記事表示コメント用型定義
 export type Comment = {
   id: number;
   username: string;
@@ -6,7 +7,7 @@ export type Comment = {
   avatar: string;
 };
 
-// 投稿データの型を定義
+// 投稿データ用型定義
 export type Post = {
   id: number;
   title: string;
@@ -14,4 +15,13 @@ export type Post = {
   author: string;
   date: string;
   thumbnail: string;
+};
+
+// 記事表示フォーム用型定義
+export type ArticleFormProps = {
+  type: "create" | "edit";
+  onSubmit: () => void;
+  defaultTitle?: string;
+  defaultContent?: string;
+  defaultCategory?: string;
 };
