@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +15,6 @@ import type { ArticleFormProps } from "@/app/types/types";
 
 import { createClient } from "@/utils/supabase/clients";
 
-import Button from "../button/Button";
 import RectButton from "../button/RectButton";
 
 // 記事投稿フォーム（追加・編集）
@@ -61,7 +61,12 @@ const ArticleForm = ({
     resolver: zodResolver(schema),
   });
 
+  console.log("バリデーションエラー:", errors);
+
   const onSubmit = async (data: Schema) => {
+    console.log("🔽 登録データ確認:", data);
+    console.log("クリックされました");
+
     if (!user) return;
 
     if (type === "create") {
@@ -73,7 +78,21 @@ const ArticleForm = ({
         image_path: data.image_path,
         created_at: data.saved_date,
       });
+
+      if (error) {
+        console.error("Insert error:", error);
+        toast.error("保存に失敗しました");
+        return;
+      }
+
+      if (!error) {
+        toast.success("投稿しました！");
+        router.replace("/articles");
+      }
     }
+
+    // if (type === "create") {
+    // }
   };
 
   return (
@@ -110,14 +129,16 @@ const ArticleForm = ({
                   height={60}
                 />
 
-                {/* アップロードボタン */}
-                <Button
-                  variant="Blue"
-                  size="lg"
-                  onClick={() => alert("画像をアップロード！")}
-                >
-                  Upload Image
-                </Button>
+                {/* 画像選択 */}
+                <label className="cursor-pointer bg-sky-500 text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300 px-14 py-5 text-xl font-bold transform rounded-full">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    {...register("image_path")}
+                  />
+                  <span>Upload Image</span>
+                </label>
               </div>
             </div>
 
@@ -127,7 +148,6 @@ const ArticleForm = ({
                 <label htmlFor="add-date">Date Added</label>
                 <input
                   type="date"
-                  defaultValue={defaultCategory}
                   className="w-60 rounded-md border border-[#7777] p-3"
                   {...register("saved_date")}
                 ></input>
@@ -147,9 +167,9 @@ const ArticleForm = ({
                   className="w-60 rounded-md border border-[#7777] p-3"
                   {...register("category_id")}
                 >
-                  <option>Value</option>
-                  <option>Value2</option>
-                  <option>Value3</option>
+                  <option value="1">Value</option>
+                  <option value="2">Value2</option>
+                  <option value="3">Value3</option>
                 </select>
 
                 <Link href="" className="text-[#666] underline ml-3">
