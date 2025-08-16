@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +22,10 @@ type Schema = z.infer<typeof schema>;
 
 const schema = z.object({
   title: z
+    .string()
+    .min(1, { message: "1文字以上で入力してください。" })
+    .max(20, { message: "20文字以内で入力してください。" }),
+  content: z
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
@@ -112,6 +117,10 @@ const ArticleForm = ({
                   <option>Value2</option>
                   <option>Value3</option>
                 </select>
+
+                <Link href="" className="text-[#666] underline ml-3">
+                  <p>カテゴリー作成はこちら</p>
+                </Link>
               </div>
             </div>
 
@@ -120,6 +129,7 @@ const ArticleForm = ({
               defaultValue={defaultContent}
               className="min-h-[300px] w-full max-w-[1200px] min-w-[600px] rounded-lg border-none bg-[#D9D9D9]/25 p-5 text-lg text-black"
               style={{ boxShadow: "2px 2px 10px 0 rgba(0, 0, 0, 0.25)" }}
+              {...register("content")}
             ></textarea>
 
             {/* 記事作成ボタン */}
