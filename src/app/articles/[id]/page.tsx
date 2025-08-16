@@ -38,7 +38,7 @@ export default function page() {
   ];
   return (
     <>
-      <div className="mx-auto my-8 w-1/2 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
+      <div className="mx-auto my-8 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
         <div className="flex justify-between">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
@@ -67,7 +67,7 @@ export default function page() {
       </div>
 
       {/* コメントエリア */}
-      <div className="mx-auto my-8 w-1/3 space-y-4">
+      <div className="mx-auto my-8 max-w-[750px] space-y-4 px-20">
         <h2 className="text-xl">Comments</h2>
         {/* 入力欄 */}
         <div className="flex justify-between">
