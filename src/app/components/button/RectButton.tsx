@@ -1,11 +1,9 @@
 // 長方形のボタン用
-
 import React from "react";
 
 type RectButtonProps = {
   children: string;
-  onClick?: () => void;
-};
+} & React.ComponentProps<"button">;
 
 const RectButton = ({ children, onClick }: RectButtonProps) => {
   return (
