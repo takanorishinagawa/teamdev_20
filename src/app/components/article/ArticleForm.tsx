@@ -100,7 +100,7 @@ const ArticleForm = ({
       <div className="p-15">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-10">
-            <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex w-full flex-col items-center gap-3">
               {/* タイトル */}
               <input
                 type="text"
@@ -129,16 +129,24 @@ const ArticleForm = ({
                   height={60}
                 />
 
-                {/* 画像選択 */}
-                <label className="cursor-pointer bg-sky-500 text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300 px-14 py-5 text-xl font-bold transform rounded-full">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    {...register("image_path")}
-                  />
-                  <span>Upload Image</span>
-                </label>
+                <div className="flex flex-col gap-3">
+                  {/* 画像選択 */}
+                  <label className="transform cursor-pointer rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      {...register("image_path")}
+                    />
+                    <span>Upload Image</span>
+                  </label>
+
+                  {errors.image_path && (
+                    <p className="mt-1 px-4 text-sm text-red-500">
+                      {errors.image_path.message}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -172,14 +180,14 @@ const ArticleForm = ({
                   <option value="3">Value3</option>
                 </select>
 
-                <Link href="" className="text-[#666] underline ml-3">
+                <Link href="" className="ml-3 text-[#666] underline">
                   <p>カテゴリー作成はこちら</p>
                 </Link>
               </div>
             </div>
 
             {/* 投稿内容 */}
-            <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex w-full flex-col items-center gap-3">
               <textarea
                 defaultValue={defaultContent}
                 className="min-h-[300px] w-full max-w-[1200px] min-w-[600px] rounded-lg border-none bg-[#D9D9D9]/25 p-5 text-lg text-black"

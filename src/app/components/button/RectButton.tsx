@@ -8,7 +8,7 @@ type RectButtonProps = {
 const RectButton = ({ children, ...props }: RectButtonProps) => {
   return (
     <button
-      className="h-[50px] w-[280px] rounded-md bg-sky-500 px-2 py-3 text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300"
+      className="rounded-md bg-sky-500 px-14 py-4 text-xl text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300"
       {...props}
     >
       {children}
