@@ -1,10 +1,11 @@
 "use client";
 
-// ボタンコンポーネント
-// 呼び出し側でカラー、サイズを選択
+import React from "react";
 
 import Link from "next/link";
-import React from "react";
+
+// ボタンコンポーネント
+// 呼び出し側でカラー、サイズを選択
 
 type ButtonProps = {
   href?: string; // ここで受け取る
@@ -38,7 +39,7 @@ const Button = ({
     md: "px-10 py-3 text-xl font-bold",
 
     // 最大（記事投稿ボタンなど）
-    lg: "",
+    lg: "px-14 py-5 text-xl font-bold",
   }[size];
 
   // ボタン共通css
