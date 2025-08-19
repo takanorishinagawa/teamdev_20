@@ -1,8 +1,10 @@
 "use client";
-import PostCard, { Post } from "@/app/components/postCard/PostCard";
+
+import PostCard from "@/app/components/postCard/PostCard";
+
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
-const dummyPosts: Post[] = Array.from({ length: 6 }).map((_, i) => ({
+const dummyPosts = Array.from({ length: 6 }).map((_, i) => ({
   id: i + 1,
   title: `Post Title ${i + 1}`,
   category: "Category",

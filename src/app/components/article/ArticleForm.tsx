@@ -1,18 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
+
+import Image from "next/image";
+
 import Button from "../button/Button";
 import RectButton from "../button/RectButton";
 
 type ArticleFormProps = {
-    type: "create" | "edit";
-    onSubmit: () => void;
-    defaultTitle?: string;
-    defaultContent?: string;
-    defaultCategory?: string;
-
-}
+  type: "create" | "edit";
+  onSubmit: () => void;
+  defaultTitle?: string;
+  defaultContent?: string;
+  defaultCategory?: string;
+};
 
 const ArticleForm = ({
   type,

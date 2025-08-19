@@ -1,5 +1,4 @@
 // 長方形のボタン用
-
 import React from "react";
 
 type RectButtonProps = {

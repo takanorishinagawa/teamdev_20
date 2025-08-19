@@ -1,17 +1,35 @@
 "use client";
-import PostCard, { Post } from "@/app/components/postCard/PostCard";
 
-// ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
-const dummyPosts: Post[] = Array.from({ length: 9 }).map((_, i) => ({
-  id: i + 1,
-  title: `Post Title ${i + 1}`,
-  category: "Category",
-  author: "Author",
-  date: "5 min ago",
-  thumbnail: "https://via.placeholder.com/300x200",
-}));
+import { useEffect, useState } from "react";
 
-const Home = () => {
+import PostCard from "@/app/components/postCard/PostCard";
+
+import { createClient } from "@/utils/supabase/clients";
+
+import type { PostState } from "../types/post";
+
+export default function Home() {
+  const [posts, setPosts] = useState<PostState[] | null>([]);
+
+  async function fetchPostsData() {
+    const supabase = createClient();
+    const { data } = await supabase.from("posts").select(`
+      *,
+      users (
+        *
+      ),
+      categories (
+        *
+      )
+    `);
+
+    setPosts(data);
+  }
+
+  useEffect(() => {
+    fetchPostsData();
+  }, []);
+
   return (
     <>
       <main className="p-8">
@@ -35,8 +53,8 @@ const Home = () => {
         </section>
 
         {/* 投稿カードのグリッド */}
-        <section className="grid cursor-pointer gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {dummyPosts.map((post) => (
+        <section className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          {posts?.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </section>
@@ -48,6 +66,4 @@ const Home = () => {
       </main>
     </>
   );
-};
-
-export default Home;
+}

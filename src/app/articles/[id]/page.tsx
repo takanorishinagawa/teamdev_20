@@ -1,18 +1,43 @@
 "use client";
+
+import { use, useEffect, useState } from "react";
+
+import Image from "next/image";
+
 import Button from "@/app/components/button/Button";
 import { CommentItem } from "@/app/components/comment/CommentItem";
-import Image from "next/image";
+import { PostState } from "@/app/types/post";
+
+import { createClient } from "@/utils/supabase/clients";
+
 import { Comment } from "../../types/comment";
 
-export default function page() {
-  // ダミー記事
-  const post = {
-    title: "Blog Title",
-    userIcon: "/images/user-image.png",
-    postImage: "/images/articleDetail/sample-image.jpg",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias temporibus debitis necessitatibus perferendis ea, eligendi iusto doloribus quo reprehenderit explicabo, voluptatem incidunt repellat, facilis quaerat! Eveniet maxime, dolorum laboriosam harum earum unde laborum? Consequatur nihil mollitia magnam cupiditate, iste fuga excepturi rem officiis minus beatae! Nulla adipisci numquam commodi minima.",
-  };
+export default function page({ params }: { params: Promise<{ id: number }> }) {
+  const { id } = use(params);
+  const [post, setPost] = useState<PostState | null>(null);
+
+  async function fetchPostData() {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from("posts")
+      .select(
+        `
+        *,
+        users (*),
+        categories (*)
+      `,
+      )
+      .eq("id", id)
+      .single();
+
+    setPost(data);
+  }
+
+  useEffect(() => {
+    fetchPostData();
+  }, []);
+
+  console.log(post?.users?.image_path);
 
   // ダミーコメント
   const comments: Comment[] = [
@@ -37,30 +62,32 @@ export default function page() {
     <>
       <div className="mx-auto my-8 w-1/2 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
-            {post.title}
+            {post?.title}
           </h1>
           <div>
             <Image
-              src={post.userIcon}
+              src={post?.users?.image_path ?? "/images/user-image.png"}
               alt="ユーザーアイコン"
-              width={50}
-              height={50}
+              width={32}
+              height={32}
             />
           </div>
         </div>
         {/* 記事画像 */}
-        <div className="relative h-[400px] w-full">
+        <div className="relative min-h-[300px] w-full">
           <Image
-            src={post.postImage}
+            src={
+              post?.image_path[0] ?? "/images/articleDetail/sample-image.jpg"
+            }
             alt="記事画像"
             fill
             className="rounded object-cover"
           />
         </div>
         {/* 本文 */}
-        <p className="text-gray-800">{post.content}</p>
+        <p className="text-gray-800">{post?.content}</p>
       </div>
 
       {/* コメントエリア */}
