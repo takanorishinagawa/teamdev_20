@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -35,7 +36,14 @@ const schema = z.object({
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
-  image_path: z.string().min(1, { message: "画像は必須です！" }),
+  image_path: z
+    .custom<FileList>((files) => files instanceof FileList, {
+      message: "画像ファイルを選択してください！",
+    })
+    .refine((files) => files && files.length > 0, {
+      message: "画像は必須です！",
+    })
+    .transform((files) => Array.from(files)),
 });
 
 const ArticleForm = ({
@@ -47,6 +55,13 @@ const ArticleForm = ({
   const supabase = createClient();
   const router = useRouter();
   const { user } = useUserStore();
+
+  const [message, setMessage] = useState<
+    | {
+        text: string;
+      }
+    | undefined
+  >(undefined);
 
   const {
     register,
@@ -61,38 +76,108 @@ const ArticleForm = ({
     resolver: zodResolver(schema),
   });
 
-  console.log("バリデーションエラー:", errors);
-
   const onSubmit = async (data: Schema) => {
     console.log("🔽 登録データ確認:", data);
-    console.log("クリックされました");
 
     if (!user) return;
 
-    if (type === "create") {
-      const { error } = await supabase.from("posts").insert({
-        user_id: user.id,
-        category_id: data.category_id,
-        title: data.title,
-        content: data.content,
-        image_path: data.image_path,
-        created_at: data.saved_date,
-      });
+    // 記事画像投稿
+    const files = data.image_path;
+    const uploadedUrls: string[] = [];
 
-      if (error) {
-        console.error("Insert error:", error);
-        toast.error("保存に失敗しました");
+    // 初回投稿
+    if (type === "create") {
+      // 画像以外を登録
+      const { data: createData, error: createError } = await supabase
+        .from("posts")
+        .insert({
+          user_id: user.id,
+          category_id: data.category_id,
+          title: data.title,
+          content: data.content,
+          image_path: "",
+          created_at: data.saved_date,
+        })
+        .select("id,created_at")
+        .single();
+
+      if (createError || !createData) {
+        console.error("Insert error:", createError);
+        setMessage({
+          text: "記事投稿に失敗しました。再度アップしてください。",
+        });
         return;
       }
 
-      if (!error) {
+      const postId = createData.id;
+      const createdAt = new Date(createData.created_at)
+        .toISOString()
+        .slice(0, 16) // "2025-08-19T12:53"
+        .replace("T", "_"); // "2025-08-19_12:53"
+      // .replace(":", "-"); // "2025-08-19_12-53"
+
+      // 画像の登録
+      for (const file of files) {
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+
+        // TODO createdAtの表記
+        const fileName = `articles/${postId}_${createdAt}/${user.id}_${crypto.randomUUID()}_${safeName}`;
+
+        // supabase ストレージのパケットに保存
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("post-images")
+          .upload(fileName, file, { upsert: true });
+
+        console.log("upload result:", {
+          fileName,
+          file,
+          uploadData,
+          uploadError,
+        });
+
+        if (uploadError) {
+          setMessage({
+            text: "画像アップロードに失敗しました。再度アップしてください。",
+          });
+          return;
+        }
+
+        // それぞれの publicUrl を取得
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("post-images").getPublicUrl(fileName);
+
+        uploadedUrls.push(publicUrl);
+      }
+
+      // 画像を登録
+      await supabase
+        .from("posts")
+        .update({ image_path: uploadedUrls })
+        .eq("id", postId);
+
+      if (createError) {
+        console.error("Insert error:", createError);
+        setMessage({
+          text: "投稿に失敗しました。再度投稿してください。",
+        });
+        return;
+      }
+
+      if (!createError) {
         toast.success("投稿しました！");
         router.replace("/articles");
       }
     }
 
+    // 投稿編集
     // if (type === "create") {
     // }
+  };
+
+  // 投稿画像プレビュー
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
   };
 
   return (
@@ -105,7 +190,7 @@ const ArticleForm = ({
               <input
                 type="text"
                 defaultValue={defaultTitle}
-                className="w-full max-w-[1100px] min-w-[600px] text-5xl font-semibold"
+                className="w-full max-w-[1100px] min-w-[600px] text-3xl font-semibold"
                 placeholder="Title"
                 {...register("title")}
               />
@@ -129,16 +214,17 @@ const ArticleForm = ({
                   height={60}
                 />
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col items-center gap-3">
                   {/* 画像選択 */}
-                  <label className="transform cursor-pointer rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300">
+                  <label className="inline-block w-fit transform cursor-pointer rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300">
                     <input
                       type="file"
                       accept="image/*"
                       className="hidden"
+                      multiple
                       {...register("image_path")}
                     />
-                    <span>Upload Image</span>
+                    <span className="text-center">Upload Image</span>
                   </label>
 
                   {errors.image_path && (
@@ -206,7 +292,9 @@ const ArticleForm = ({
             </div>
 
             {/* 記事作成ボタン */}
-            <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end">
+            <div className="flex w-full max-w-[1200px] min-w-[600px] items-center justify-end gap-10">
+              {message && <div className="text-red-500">{message.text}</div>}
+
               <RectButton type="submit">
                 {type === "create" ? "Create" : "Update"}
               </RectButton>
