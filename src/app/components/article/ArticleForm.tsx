@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -17,11 +16,13 @@ import type { ArticleFormProps } from "@/app/types/types";
 import { createClient } from "@/utils/supabase/clients";
 
 import RectButton from "../button/RectButton";
+import ImageFields from "./ImageFields";
 
 // 記事投稿フォーム（追加・編集）
 
 type Schema = z.infer<typeof schema>;
 
+// TODO　画像のファイル容量を加味すること
 const schema = z.object({
   category_id: z
     .string()
@@ -66,6 +67,7 @@ const ArticleForm = ({
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -114,7 +116,6 @@ const ArticleForm = ({
         .toISOString()
         .slice(0, 16) // "2025-08-19T12:53"
         .replace("T", "_"); // "2025-08-19_12:53"
-      // .replace(":", "-"); // "2025-08-19_12-53"
 
       // 画像の登録
       for (const file of files) {
@@ -204,37 +205,17 @@ const ArticleForm = ({
             </div>
 
             {/* 画像アップロード */}
-            <div className="w-full max-w-[1200px] min-w-[600px] rounded-lg border-2 border-dashed border-[#7777] p-20">
-              <div className="flex flex-col items-center gap-10">
-                {/* 矢印アイコン */}
-                <Image
-                  src="/icon/create/arrow.png"
-                  alt="アイコン"
-                  width={60}
-                  height={60}
+            <Controller
+              name="image_path"
+              control={control}
+              render={({ field }) => (
+                <ImageFields
+                  value={Array.from(field.value ?? [])}
+                  onChange={field.onChange}
+                  error={errors.image_path?.message}
                 />
-
-                <div className="flex flex-col items-center gap-3">
-                  {/* 画像選択 */}
-                  <label className="inline-block w-fit transform cursor-pointer rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      multiple
-                      {...register("image_path")}
-                    />
-                    <span className="text-center">Upload Image</span>
-                  </label>
-
-                  {errors.image_path && (
-                    <p className="mt-1 px-4 text-sm text-red-500">
-                      {errors.image_path.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
+              )}
+            ></Controller>
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
               {/* 追加日 */}

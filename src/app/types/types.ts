@@ -25,3 +25,11 @@ export type ArticleFormProps = {
   defaultContent?: string;
   defaultCategory?: string;
 };
+
+// 記事投稿時の画像処理用：ImageFields.tsx
+export type ImageFieldProps = {
+  value: File[];
+  // maxFiles?: number; // 登録できる上限枚数
+  error?: string;
+  onChange?: (files: File[] | FileList | null) => void;
+};
