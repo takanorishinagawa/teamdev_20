@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { ImageFieldProps } from "@/app/types/types";
 
 import Button from "../button/Button";
+import { PreviewPaginatedItems } from "../pagination/PreviewPaginatedItems";
 
 // ArticleFormの画像登録処理
 function ImageFields({ value, onChange }: ImageFieldProps) {
@@ -24,21 +25,10 @@ function ImageFields({ value, onChange }: ImageFieldProps) {
   }, [previews]);
 
   return (
-    <div className="w-full max-w-[1200px] min-w-[600px] rounded-lg border-2 border-dashed border-[#7777] p-20">
+    <div className="w-full max-w-[1200px] min-w-[600px] rounded-lg border-2 border-dashed border-[#7777] p-10">
       <div className="flex flex-col items-center gap-10">
-        {previews.length > 0 && (
-          <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4">
-            {previews.map((url, i) => (
-              <div key={url} className="relative">
-                <img
-                  src={url}
-                  alt={`preview-${i + 1}`}
-                  className="h-40 w-full rounded object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        {/* 登録前画像ページネーション */}
+        <PreviewPaginatedItems items={previews} itemsPerPage={1} />
 
         {/* 矢印アイコン */}
         <Image

@@ -1,6 +1,6 @@
 "use client";
 
-import { PaginatedItems } from "../components/pagination/PaginatedItems";
+import { PostPaginatedItems } from "../components/pagination/PostPaginatedItems";
 import type { Post } from "../types/types";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
@@ -40,7 +40,7 @@ const Home = () => {
         </section>
 
         {/* ページネーション */}
-        <PaginatedItems items={items} itemsPerPage={9} />
+        <PostPaginatedItems items={items} itemsPerPage={9} />
       </main>
     </>
   );

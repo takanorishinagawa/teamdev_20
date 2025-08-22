@@ -5,23 +5,21 @@ import type { Post } from "@/app/types/types";
 
 import PostCard from "../postCard/PostCard";
 
-// 📍ページネーション用
+// 📍投稿画面用ページネーション
 // react-paginate を採用
 
-type PaginatedItemsProps = {
+type PostPaginatedItemsProps = {
   items: Post[];
   itemsPerPage: number;
 };
 
-export function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
+export function PostPaginatedItems({
+  items,
+  itemsPerPage,
+}: PostPaginatedItemsProps) {
   const [itemOffset, setItemOffset] = useState(0);
-
   const endOffset = itemOffset + itemsPerPage;
-
-  console.log(`表示範囲: ${itemOffset} 〜 ${endOffset}`);
-
   const currentItems = items.slice(itemOffset, endOffset);
-
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
   const handlePageClick = (event: { selected: number }) => {
@@ -42,7 +40,7 @@ export function PaginatedItems({ items, itemsPerPage }: PaginatedItemsProps) {
           ))}
         </div>
 
-        <div className="text-center pt-10">
+        <div className="pt-5 text-center">
           {/* ページネーションUI */}
           <ReactPaginate
             breakLabel="..."

@@ -171,21 +171,16 @@ const ArticleForm = ({
       }
     }
 
-    // 投稿編集
+    // TODO 投稿編集
     // if (type === "create") {
     // }
-  };
-
-  // 投稿画像プレビュー
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
   };
 
   return (
     <div>
       <div className="p-15">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col items-center gap-10">
+          <div className="flex flex-col items-center gap-7">
             <div className="flex w-full flex-col items-center gap-3">
               {/* タイトル */}
               <input
