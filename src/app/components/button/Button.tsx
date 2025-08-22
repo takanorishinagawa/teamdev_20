@@ -20,6 +20,7 @@ const Button = ({
   className = "",
   variant = "Blue",
   size = "md",
+  ...rest
 }: ButtonProps) => {
   // ボタンカラー選択
   const variantClass = {
@@ -57,7 +58,7 @@ const Button = ({
   }
 
   return (
-    <button onClick={onClick} className={combinedClass}>
+    <button onClick={onClick} className={combinedClass} {...rest}>
       {children}
     </button>
   );

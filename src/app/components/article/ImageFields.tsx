@@ -9,7 +9,7 @@ import type { ImageFieldProps } from "@/app/types/types";
 import Button from "../button/Button";
 
 // ArticleFormの画像登録処理
-function ImageFields({ value, error, onChange }: ImageFieldProps) {
+function ImageFields({ value, onChange }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   // File[](RHF) → objectURL[]（ローカルで管理するURL)
@@ -47,29 +47,26 @@ function ImageFields({ value, error, onChange }: ImageFieldProps) {
           width={60}
           height={60}
         />
-        <div className="flex flex-col items-center gap-3">
-          <Button
-            type="button"
-            size="lg"
-            className="rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300"
-            onClick={() => inputRef.current?.click()}
-          >
-            Upload Image
-          </Button>
 
-          <input
-            ref={inputRef}
-            type="file"
-            className="hidden"
-            multiple
-            onChange={(e) => {
-              const files = Array.from(e.target.files ?? []);
-              onChange?.(files);
-            }}
-          />
+        <Button
+          type="button"
+          size="lg"
+          className="rounded-full bg-sky-500 px-14 py-5 text-xl font-bold text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300"
+          onClick={() => inputRef.current?.click()}
+        >
+          Upload Image
+        </Button>
 
-          {error && <p className="mt-1 px-4 text-sm text-red-500">{error}</p>}
-        </div>
+        <input
+          ref={inputRef}
+          type="file"
+          className="hidden"
+          multiple
+          onChange={(e) => {
+            const files = Array.from(e.target.files ?? []);
+            onChange?.(files);
+          }}
+        />
       </div>
     </div>
   );

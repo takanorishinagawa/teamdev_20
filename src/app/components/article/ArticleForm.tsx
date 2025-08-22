@@ -38,13 +38,10 @@ const schema = z.object({
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
   image_path: z
-    .custom<FileList>((files) => files instanceof FileList, {
+    .array(z.instanceof(File), {
       message: "画像ファイルを選択してください！",
     })
-    .refine((files) => files && files.length > 0, {
-      message: "画像は必須です！",
-    })
-    .transform((files) => Array.from(files)),
+    .min(1, { message: "画像は必須です！" }),
 });
 
 const ArticleForm = ({
@@ -68,14 +65,17 @@ const ArticleForm = ({
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm({
     defaultValues: {
       title: "",
       content: "",
       saved_date: new Date().toISOString().split("T")[0],
+      image_path: [] as File[],
     },
     resolver: zodResolver(schema),
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
   });
 
   const onSubmit = async (data: Schema) => {
@@ -205,17 +205,23 @@ const ArticleForm = ({
             </div>
 
             {/* 画像アップロード */}
-            <Controller
-              name="image_path"
-              control={control}
-              render={({ field }) => (
-                <ImageFields
-                  value={Array.from(field.value ?? [])}
-                  onChange={field.onChange}
-                  error={errors.image_path?.message}
-                />
+            <div className="flex w-full flex-col items-center gap-3">
+              <Controller
+                name="image_path"
+                control={control}
+                render={({ field }) => (
+                  <ImageFields
+                    value={field.value ?? []}
+                    onChange={field.onChange}
+                  />
+                )}
+              ></Controller>
+              {errors.image_path && isSubmitted && (
+                <p className="mt-1 px-4 text-sm text-red-500">
+                  {errors.image_path.message}
+                </p>
               )}
-            ></Controller>
+            </div>
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
               {/* 追加日 */}
