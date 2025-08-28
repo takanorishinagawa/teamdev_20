@@ -17,6 +17,7 @@ import { createClient } from "@/utils/supabase/clients";
 
 import RectButton from "../button/RectButton";
 import ImageFields from "./ImageFields";
+import TitleArea from "./components/TitleArea";
 
 // 記事投稿フォーム（追加・編集）
 
@@ -181,23 +182,12 @@ const ArticleForm = ({
       <div className="p-15">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-7">
-            <div className="flex w-full flex-col items-center gap-3">
-              {/* タイトル */}
-              <input
-                type="text"
-                defaultValue={defaultTitle}
-                className="w-full max-w-[1100px] min-w-[600px] text-3xl font-semibold"
-                placeholder="Title"
-                {...register("title")}
-              />
-              <div className="flex w-full items-start">
-                {errors.title && (
-                  <p className="mt-1 px-4 text-sm text-red-500">
-                    {errors.title.message}
-                  </p>
-                )}
-              </div>
-            </div>
+            {/* タイトル */}
+            <TitleArea
+              defaultTitle={defaultTitle}
+              register={register}
+              errors={errors.title}
+            />
 
             {/* 画像アップロード */}
             <div className="flex w-full flex-col items-center gap-3">
