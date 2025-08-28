@@ -17,6 +17,7 @@ import { createClient } from "@/utils/supabase/clients";
 
 import RectButton from "../button/RectButton";
 import ImageFields from "./ImageFields";
+import AddDateArea from "./components/AddDateArea";
 import TitleArea from "./components/TitleArea";
 
 // 記事投稿フォーム（追加・編集）
@@ -210,19 +211,7 @@ const ArticleForm = ({
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
               {/* 追加日 */}
-              <div className="flex flex-col gap-3">
-                <label htmlFor="add-date">Date Added</label>
-                <input
-                  type="date"
-                  className="w-60 rounded-md border border-[#7777] p-3"
-                  {...register("saved_date")}
-                ></input>
-                {errors.saved_date && (
-                  <p className="mt-1 px-4 text-sm text-red-500">
-                    {errors.saved_date.message}
-                  </p>
-                )}
-              </div>
+              <AddDateArea register={register} errors={errors.saved_date} />
 
               {/* カテゴリー */}
               <div className="flex flex-col gap-3">
