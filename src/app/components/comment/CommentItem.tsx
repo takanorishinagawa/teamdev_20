@@ -2,7 +2,9 @@ import Image from "next/image";
 
 import { formatTimeAgo } from "@/app/utils/formatTimeAgo";
 
+
 import { Comment } from "../../types/types";
+
 
 export const CommentItem = ({ comment }: { comment: Comment }) => {
   return (

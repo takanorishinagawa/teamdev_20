@@ -1,8 +1,10 @@
 "use client";
 
-import Button from "@/app/components/button/Button";
-import { useRouter } from "next/navigation";
 import React from "react";
+
+import { useRouter } from "next/navigation";
+
+import Button from "@/app/components/button/Button";
 
 const ArticleHomePage = () => {
   const router = useRouter();
