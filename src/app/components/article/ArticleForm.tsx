@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import useUserStore from "@/store/useUserStore";
@@ -18,6 +17,7 @@ import { createClient } from "@/utils/supabase/clients";
 import RectButton from "../button/RectButton";
 import ImageFields from "./ImageFields";
 import AddDateArea from "./components/AddDateArea";
+import CategoryArea from "./components/CategoryArea";
 import TitleArea from "./components/TitleArea";
 
 // 記事投稿フォーム（追加・編集）
@@ -26,15 +26,15 @@ type Schema = z.infer<typeof schema>;
 
 // TODO　画像のファイル容量を加味すること
 const schema = z.object({
-  category_id: z
-    .string()
-    .min(1, { message: "カテゴリーを選択してください。" })
-    .transform((val) => Number(val)),
   title: z
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
   saved_date: z.string().min(1, { message: "日付を選択してください。" }),
+  category_id: z
+    .string()
+    .min(1, { message: "選択してください。" })
+    .transform((val) => Number(val)),
   content: z
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
@@ -214,23 +214,11 @@ const ArticleForm = ({
               <AddDateArea register={register} errors={errors.saved_date} />
 
               {/* カテゴリー */}
-              <div className="flex flex-col gap-3">
-                <label htmlFor="category">Category</label>
-                <select
-                  id="category"
-                  defaultValue={defaultCategory}
-                  className="w-60 rounded-md border border-[#7777] p-3"
-                  {...register("category_id")}
-                >
-                  <option value="1">Value</option>
-                  <option value="2">Value2</option>
-                  <option value="3">Value3</option>
-                </select>
-
-                <Link href="" className="ml-3 text-[#666] underline">
-                  <p>カテゴリー作成はこちら</p>
-                </Link>
-              </div>
+              <CategoryArea
+                register={register}
+                errors={errors.category_id}
+                defaultCategory={defaultCategory}
+              />
             </div>
 
             {/* 投稿内容 */}
