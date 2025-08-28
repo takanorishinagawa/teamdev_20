@@ -1,12 +1,8 @@
-import type { FieldError, UseFormRegister } from "react-hook-form";
-
 import Link from "next/link";
 
-type CategoryAreaProps = {
-  defaultCategory?: string;
-  register: UseFormRegister<any>;
-  errors?: FieldError;
-};
+import type { CategoryAreaProps } from "./types";
+
+// カテゴリー選択
 
 const CategoryArea = ({
   defaultCategory,

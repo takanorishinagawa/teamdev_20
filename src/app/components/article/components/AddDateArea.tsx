@@ -1,9 +1,5 @@
-import type { FieldError, UseFormRegister } from "react-hook-form";
-
-type AddDateAreaProps = {
-  register: UseFormRegister<any>;
-  errors?: FieldError;
-};
+// 投稿日
+import type { AddDateAreaProps } from "./types";
 
 const AddDateArea = ({ register, errors }: AddDateAreaProps) => {
   return (

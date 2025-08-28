@@ -1,10 +1,5 @@
-import type { FieldError, UseFormRegister } from "react-hook-form";
-
-type ContentAreaProps = {
-  defaultContent?: string;
-  register: UseFormRegister<any>;
-  errors?: FieldError;
-};
+// 投稿内容
+import type { ContentAreaProps } from "./types";
 
 const ContentArea = ({
   defaultContent,

@@ -1,12 +1,6 @@
-import { type FieldError, type UseFormRegister } from "react-hook-form";
+import type { TitleAreaProps } from "./types";
 
-// 記事投稿、タイトル入力欄
-
-type TitleAreaProps = {
-  defaultTitle?: string;
-  register: UseFormRegister<any>;
-  errors?: FieldError;
-};
+// タイトル用
 
 const TitleArea = ({ defaultTitle, register, errors }: TitleAreaProps) => {
   return (
