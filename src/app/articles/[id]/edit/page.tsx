@@ -1,12 +1,7 @@
-// 各記事編集画面用
-
 "use client";
 
-import React from "react";
 
 import ArticleForm from "@/app/components/article/ArticleForm";
-
-// 各記事編集画面用
 
 // 各記事編集画面用
 
