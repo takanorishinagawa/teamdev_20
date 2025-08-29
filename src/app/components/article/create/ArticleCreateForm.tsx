@@ -14,12 +14,12 @@ import type { ArticleFormProps } from "@/app/types/types";
 
 import { createClient } from "@/utils/supabase/clients";
 
-import RectButton from "../button/RectButton";
-import AddDateArea from "./components/AddDateArea";
-import CategoryArea from "./components/CategoryArea";
-import ContentArea from "./components/ContentArea";
-import ImageFields from "./components/ImageFields";
-import TitleArea from "./components/TitleArea";
+import RectButton from "../../button/RectButton";
+import AddDateArea from "../components/AddDateArea";
+import CategoryArea from "../components/CategoryArea";
+import ContentArea from "../components/ContentArea";
+import ImageFields from "../components/ImageFields";
+import TitleArea from "../components/TitleArea";
 
 // 記事投稿フォーム（追加・編集）
 
