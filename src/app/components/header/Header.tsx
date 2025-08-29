@@ -12,16 +12,18 @@ export default function Header() {
       <div className="flex h-16 items-center justify-end gap-6 bg-blue-100 pr-10 font-bold">
         {user.id ? (
           <>
-            <Button
-              // TODO 記事作成ページへ遷移
-              href="/articles/create"
-              variant="DarkBlue"
-              size="sm"
-            >
+            <Button href="/articles" variant="DarkBlue" size="sm">
+              home
+            </Button>
+
+            <Button href="/articles/create" variant="white" size="sm">
               Create
             </Button>
 
-            {/* TODO ログアウトボタンを仮配置 */}
+            <Button href="/articles/your-post" variant="DarkBlue" size="sm">
+              your-post
+            </Button>
+
             <Button href="/auth/signout/form" variant="white" size="sm">
               Log out
             </Button>
