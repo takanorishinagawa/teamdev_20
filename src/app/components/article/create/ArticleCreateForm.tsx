@@ -36,10 +36,7 @@ const schema = z.object({
     .string()
     .min(1, { message: "選択してください。" })
     .transform((val) => Number(val)),
-  content: z
-    .string()
-    .min(1, { message: "1文字以上で入力してください。" })
-    .max(20, { message: "20文字以内で入力してください。" }),
+  content: z.string().min(1, { message: "1文字以上で入力してください。" }),
   image_path: z
     .array(z.instanceof(File), {
       message: "画像ファイルを選択してください！",
