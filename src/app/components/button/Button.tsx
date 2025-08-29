@@ -24,7 +24,7 @@ const Button = ({
 }: ButtonProps) => {
   // ボタンカラー選択
   const variantClass = {
-    Blue: "bg-sky-500 text-white shadow-md duration-300 hover:-translate-y-1 hover:bg-sky-300",
+    Blue: "bg-sky-500 text-white shadow-md duration-300 hover:-translate-y-0.5 hover:bg-sky-300",
     DarkBlue:
       "bg-blue-500 text-white duration-300 hover:-translate-y-0.5 hover:bg-blue-300",
     white:

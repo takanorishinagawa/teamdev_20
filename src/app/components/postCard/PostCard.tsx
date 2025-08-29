@@ -1,5 +1,6 @@
 //型定義などで React.FC を使うので読み込む
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import type { Post } from "@/app/types/types";
 
@@ -10,8 +11,14 @@ export interface PostCardProps {
 
 //props.post.title という二重構造になる。型の書き方はchildren を勝手に含まないので意図しない props を受け取らない。React 公式もこちらを推奨
 const PostCard = ({ post }: PostCardProps) => {
+  const router = useRouter();
+
   return (
-    <div className="rounded-lg border p-3 shadow transition hover:shadow-md">
+    <button
+      type="button"
+      onClick={() => router.push(`/articles/${post.id}`)}
+      className="cursor-pointer duration-300 rounded-lg border p-3 shadow transition hover:-translate-y-1 hover:shadow-md"
+    >
       {/* サムネイル */}
       <Image
         src={post.thumbnail}
@@ -31,7 +38,7 @@ const PostCard = ({ post }: PostCardProps) => {
       <p className="text-sm text-gray-500">
         {post.author} ・ {post.date}
       </p>
-    </div>
+    </button>
   );
 };
 
