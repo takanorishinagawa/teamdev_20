@@ -9,7 +9,6 @@ import type { ImageFieldProps } from "@/app/types/types";
 import Button from "../../button/Button";
 import { PreviewPaginatedItems } from "../../pagination/PreviewPaginatedItems";
 
-// ArticleFormの画像登録処理
 function ImageFields({ value, onChange }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 

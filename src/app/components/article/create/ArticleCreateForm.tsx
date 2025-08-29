@@ -47,7 +47,7 @@ const schema = z.object({
     .min(1, { message: "画像は必須です！" }),
 });
 
-const ArticleForm = ({
+const ArticleCreateForm = ({
   type,
   defaultTitle = "",
   defaultContent = "",
@@ -245,4 +245,4 @@ const ArticleForm = ({
   );
 };
 
-export default ArticleForm;
+export default ArticleCreateForm;
