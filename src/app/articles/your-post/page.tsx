@@ -4,25 +4,12 @@ import { useEffect, useState } from "react";
 
 import useUserStore from "@/store/useUserStore";
 
-import { PostPaginatedItems } from "@/app/components/pagination/PostPaginatedItems";
 import type { Post } from "@/app/types/types";
 
 import { createClient } from "@/utils/supabase/clients";
-
-// ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
-// TODO supabaseから取得
-// const dummyPosts: Post[] = Array.from({ length: 30 }).map((_, i) => ({
-//   id: i + 1,
-//   title: `Post Title ${i + 1}`,
-//   category: "Category",
-//   author: "Author",
-//   date: "5 min ago",
-//   thumbnail: "https://via.placeholder.com/300x200",
-// }));
+import { PostPaginatedItems } from "@/app/components/pagination/PostPaginatedItems";
 
 const YourPost = () => {
-  // TODO 記事投稿内容実装次第変更すること。
-  // const items = dummyPosts;
   const supabase = createClient();
   const { user } = useUserStore();
   const [items, setItems] = useState<Post[]>([]);

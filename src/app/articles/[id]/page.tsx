@@ -1,75 +1,125 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
+import { useParams } from "next/navigation";
+
+import useUserStore from "@/store/useUserStore";
 
 import Button from "@/app/components/button/Button";
-import { CommentItem } from "@/app/components/comment/CommentItem";
 
-import { Comment } from "../../types/types";
+import { createClient } from "@/utils/supabase/clients";
+
+export type Post = {
+  id: number;
+  title?: string;
+  content?: string;
+  image_path?: string[];
+  created_at: string;
+  user_id?: string;
+};
 
 export default function page() {
-  // ダミー記事
-  const post = {
-    title: "Blog Title",
-    userIcon: "/images/user-image.png",
-    postImage: "/images/articleDetail/sample-image.jpg",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias temporibus debitis necessitatibus perferendis ea, eligendi iusto doloribus quo reprehenderit explicabo, voluptatem incidunt repellat, facilis quaerat! Eveniet maxime, dolorum laboriosam harum earum unde laborum? Consequatur nihil mollitia magnam cupiditate, iste fuga excepturi rem officiis minus beatae! Nulla adipisci numquam commodi minima.",
-  };
+  const supabase = createClient();
+  const { user } = useUserStore();
 
-  // ダミーコメント
-  const comments: Comment[] = [
-    {
-      id: 1,
-      username: "user1",
-      message:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quae quia reiciendis fugit facere veritatis.",
-      createdAt: "2025-07-24T06:30:00.000Z", // コメント記入日
-      avatar: "/images/user-image.png",
-    },
-    {
-      id: 2,
-      username: "user2",
-      message:
-        "Reiciendis fugit facere veritatis quisquam porro iusto odit conseq untur pariatur.",
-      createdAt: "2025-07-24T05:30:00.000Z",
-      avatar: "/images/user-image.png",
-    },
-  ];
+  const params = useParams();
+  const rawId = params?.id as string;
+  const postId = Number(rawId);
+
+  const [post, setPost] = useState<Post | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (!user?.id) return;
+
+      console.log("現在のログインユーザー:", user);
+
+      const { data: PostData, error: PostError } = await supabase
+        .from("posts")
+        .select(
+          "id, category_id, title, content, image_path, created_at,user_id",
+        )
+        .eq("id", postId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (PostError) {
+        console.error("post取得エラー", PostError);
+        return;
+      }
+
+      if (
+        PostData &&
+        PostData.title !== null &&
+        PostData.content !== null &&
+        PostData.image_path !== null
+      ) {
+        setPost({
+          id: PostData.id,
+          title: PostData.title,
+          content: PostData.content,
+          image_path: (PostData.image_path as string[]) ?? [],
+          created_at: new Date(PostData.created_at)
+            .toISOString()
+            .slice(0, 16) // "2025-08-19T12:53"
+            .replace("T", "_"), // "2025-08-19_12:53",
+          user_id: PostData.user_id ?? undefined,
+        });
+      }
+    };
+
+    fetchPost();
+  }, [user?.id]);
+
   return (
     <>
-      <div className="mx-auto my-8 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
+      <div className="mx-auto mt-10 flex flex-col gap-10 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
         <div className="flex justify-between">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
-            {post.title}
+            {post?.title}
           </h1>
-          <div>
+
+          <Button type="button" size="sm">
+            Edit
+          </Button>
+
+          {/* TODO ユーザーアイコン */}
+          {/* <div>
             <Image
               src={post.userIcon}
               alt="ユーザーアイコン"
               width={50}
               height={50}
             />
-          </div>
+          </div> */}
         </div>
+
+        {/* 日付 */}
+        <div>{post?.created_at}</div>
+
         {/* 記事画像 */}
-        <div className="relative h-[400px] w-full">
-          <Image
-            src={post.postImage}
-            alt="記事画像"
-            fill
-            className="rounded object-cover"
-          />
-        </div>
+        {post?.image_path?.[0] && (
+          <div className="relative h-[400px] w-full">
+            <Image
+              src={post.image_path[0]} // 配列の最初の画像だけ
+              alt="記事画像"
+              fill
+              className="rounded object-cover"
+            />
+          </div>
+        )}
         {/* 本文 */}
-        <p className="text-gray-800">{post.content}</p>
+        <p className="text-2xl text-gray-800">{post?.content}</p>
       </div>
 
-      {/* コメントエリア */}
-      <div className="mx-auto my-8 max-w-[750px] space-y-4 px-20">
+      {/* TODOコメントエリア */}
+      {/* <div className="mx-auto my-8 max-w-[750px] space-y-4 px-20">
         <h2 className="text-xl">Comments</h2>
-        {/* 入力欄 */}
+       
         <div className="flex justify-between">
           <label htmlFor="comment" className="sr-only">
             コメント
@@ -85,13 +135,13 @@ export default function page() {
             Comment
           </Button>
         </div>
-        {/* コメント一覧 */}
+
         <div className="space-y-6">
           {comments.map((comment) => (
             <CommentItem key={comment.id} comment={comment} />
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
