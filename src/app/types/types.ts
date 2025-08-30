@@ -19,8 +19,6 @@ export type Post = {
 
 // 記事表示フォーム用型定義
 export type ArticleFormProps = {
-  type: "create" | "edit";
-  onSubmit: () => void;
   defaultTitle?: string;
   defaultContent?: string;
   defaultCategory?: string;

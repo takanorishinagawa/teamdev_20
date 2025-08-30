@@ -47,8 +47,7 @@ const schema = z.object({
     .min(1, { message: "画像は必須です！" }),
 });
 
-const ArticleCreateForm = ({
-  type,
+const ArticleEditForm = ({
   defaultTitle = "",
   defaultContent = "",
   defaultCategory = "",
@@ -90,93 +89,86 @@ const ArticleCreateForm = ({
     const files = data.image_path;
     const uploadedUrls: string[] = [];
 
-    // 初回投稿
-    if (type === "create") {
-      // 画像以外を登録
-      const { data: createData, error: createError } = await supabase
-        .from("posts")
-        .insert({
-          user_id: user.id,
-          category_id: data.category_id,
-          title: data.title,
-          content: data.content,
-          image_path: "",
-          created_at: data.saved_date,
-        })
-        .select("id,created_at")
-        .single();
+    // 画像以外を登録
+    const { data: createData, error: createError } = await supabase
+      .from("posts")
+      .insert({
+        user_id: user.id,
+        category_id: data.category_id,
+        title: data.title,
+        content: data.content,
+        image_path: "",
+        created_at: data.saved_date,
+      })
+      .select("id,created_at")
+      .single();
 
-      if (createError || !createData) {
-        console.error("Insert error:", createError);
-        setMessage({
-          text: "記事投稿に失敗しました。再度アップしてください。",
-        });
-        return;
-      }
-
-      const postId = createData.id;
-      const createdAt = new Date(createData.created_at)
-        .toISOString()
-        .slice(0, 16) // "2025-08-19T12:53"
-        .replace("T", "_"); // "2025-08-19_12:53"
-
-      // 画像の登録
-      for (const file of files) {
-        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-
-        // TODO createdAtの表記
-        const fileName = `articles/${postId}_${createdAt}/${user.id}_${crypto.randomUUID()}_${safeName}`;
-
-        // supabase ストレージのパケットに保存
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("post-images")
-          .upload(fileName, file, { upsert: true });
-
-        console.log("upload result:", {
-          fileName,
-          file,
-          uploadData,
-          uploadError,
-        });
-
-        if (uploadError) {
-          setMessage({
-            text: "画像アップロードに失敗しました。再度アップしてください。",
-          });
-          return;
-        }
-
-        // それぞれの publicUrl を取得
-        const {
-          data: { publicUrl },
-        } = supabase.storage.from("post-images").getPublicUrl(fileName);
-
-        uploadedUrls.push(publicUrl);
-      }
-
-      // 画像を登録
-      await supabase
-        .from("posts")
-        .update({ image_path: uploadedUrls })
-        .eq("id", postId);
-
-      if (createError) {
-        console.error("Insert error:", createError);
-        setMessage({
-          text: "投稿に失敗しました。再度投稿してください。",
-        });
-        return;
-      }
-
-      if (!createError) {
-        toast.success("投稿しました！");
-        router.replace("/articles");
-      }
+    if (createError || !createData) {
+      console.error("Insert error:", createError);
+      setMessage({
+        text: "記事投稿に失敗しました。再度アップしてください。",
+      });
+      return;
     }
 
-    // TODO 投稿編集
-    // if (type === "Update") {
-    // }
+    const postId = createData.id;
+    const createdAt = new Date(createData.created_at)
+      .toISOString()
+      .slice(0, 16) // "2025-08-19T12:53"
+      .replace("T", "_"); // "2025-08-19_12:53"
+
+    // 画像の登録
+    for (const file of files) {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+
+      // TODO createdAtの表記
+      const fileName = `articles/${postId}_${createdAt}/${user.id}_${crypto.randomUUID()}_${safeName}`;
+
+      // supabase ストレージのパケットに保存
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("post-images")
+        .upload(fileName, file, { upsert: true });
+
+      console.log("upload result:", {
+        fileName,
+        file,
+        uploadData,
+        uploadError,
+      });
+
+      if (uploadError) {
+        setMessage({
+          text: "画像アップロードに失敗しました。再度アップしてください。",
+        });
+        return;
+      }
+
+      // それぞれの publicUrl を取得
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("post-images").getPublicUrl(fileName);
+
+      uploadedUrls.push(publicUrl);
+    }
+
+    // 画像を登録
+    await supabase
+      .from("posts")
+      .update({ image_path: uploadedUrls })
+      .eq("id", postId);
+
+    if (createError) {
+      console.error("Insert error:", createError);
+      setMessage({
+        text: "投稿に失敗しました。再度投稿してください。",
+      });
+      return;
+    }
+
+    if (!createError) {
+      toast.success("投稿しました！");
+      router.replace("/articles");
+    }
   };
 
   return (
@@ -234,9 +226,7 @@ const ArticleCreateForm = ({
             <div className="flex w-full max-w-[1200px] min-w-[600px] items-center justify-end gap-10">
               {message && <div className="text-red-500">{message.text}</div>}
 
-              <RectButton type="submit">
-                {type === "create" ? "Create" : "Update"}
-              </RectButton>
+              <RectButton type="submit">Updata</RectButton>
             </div>
           </div>
         </form>
@@ -245,4 +235,4 @@ const ArticleCreateForm = ({
   );
 };
 
-export default ArticleCreateForm;
+export default ArticleEditForm;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import useUserStore from "@/store/useUserStore";
 
@@ -21,6 +21,7 @@ export type Post = {
 };
 
 export default function page() {
+  const router = useRouter();
   const supabase = createClient();
   const { user } = useUserStore();
 
@@ -83,7 +84,11 @@ export default function page() {
             {post?.title}
           </h1>
 
-          <Button type="button" size="sm">
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => router.push(`/articles/${post?.id}/edit/`)}
+          >
             Edit
           </Button>
 
@@ -119,7 +124,6 @@ export default function page() {
       {/* TODOコメントエリア */}
       {/* <div className="mx-auto my-8 max-w-[750px] space-y-4 px-20">
         <h2 className="text-xl">Comments</h2>
-       
         <div className="flex justify-between">
           <label htmlFor="comment" className="sr-only">
             コメント
