@@ -16,6 +16,7 @@ export type Post = {
   title?: string;
   content?: string;
   image_path?: string[];
+  category_id?: number;
   created_at: string;
   user_id?: string;
 };
@@ -68,6 +69,7 @@ export default function page() {
             .slice(0, 16) // "2025-08-19T12:53"
             .replace("T", "_"), // "2025-08-19_12:53",
           user_id: PostData.user_id ?? undefined,
+          category_id: PostData.category_id ?? undefined, // ← 追加
         });
       }
     };
@@ -103,8 +105,13 @@ export default function page() {
           </div> */}
         </div>
 
-        {/* 日付 */}
-        <div>{post?.created_at}</div>
+        <div className="flex gap-5">
+          {/* 日付 */}
+          <div>{post?.created_at}</div>
+          {/* カテゴリー */}
+          {/* TODO idの表示になっているため、修正必要 */}
+          <div>{post?.category_id}</div>
+        </div>
 
         {/* 記事画像 */}
         {post?.image_path?.[0] && (
