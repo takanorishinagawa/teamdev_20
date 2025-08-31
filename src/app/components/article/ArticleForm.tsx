@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -16,10 +15,8 @@ import type { ArticleFormProps } from "@/app/types/types";
 
 import { createClient } from "@/utils/supabase/clients";
 
-
 import RectButton from "../button/RectButton";
 import ImageFields from "./ImageFields";
-
 
 // 記事投稿フォーム（追加・編集）
 
@@ -46,7 +43,6 @@ const schema = z.object({
     })
     .min(1, { message: "画像は必須です！" }),
 });
-
 
 const ArticleForm = ({
   type,

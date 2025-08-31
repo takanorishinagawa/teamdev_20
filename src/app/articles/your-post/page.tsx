@@ -1,12 +1,10 @@
 "use client";
 
-
 import { PostPaginatedItems } from "@/app/components/pagination/PostPaginatedItems";
 import type { Post } from "@/app/types/types";
 
 // ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
 const dummyPosts: Post[] = Array.from({ length: 30 }).map((_, i) => ({
-
   id: i + 1,
   title: `Post Title ${i + 1}`,
   category: "Category",

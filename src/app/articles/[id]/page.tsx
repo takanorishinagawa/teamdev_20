@@ -6,12 +6,17 @@ import Image from "next/image";
 
 import Button from "@/app/components/button/Button";
 import { CommentItem } from "@/app/components/comment/CommentItem";
-
-import { Comment } from "../../types/types";
 import { PostState } from "@/app/types/post";
+
 import { createClient } from "@/utils/supabase/clients";
 
-export default function ArticlePage({ params }: { params: Promise<{ id: number }> }) {
+import { Comment } from "../../types/types";
+
+export default function ArticlePage({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
   const { id } = use(params);
   const [post, setPost] = useState<PostState | null>(null);
 
@@ -59,7 +64,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: number }
     <>
       <div className="mx-auto my-8 space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-10 shadow-md">
         {/* 記事タイトルとユーザーアイコン */}
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h1 className="font-bold" style={{ fontSize: "30px" }}>
             {post?.title}
           </h1>

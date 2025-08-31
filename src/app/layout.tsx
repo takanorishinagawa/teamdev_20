@@ -40,8 +40,7 @@ export default async function RootLayout({
         <Header />
 
         {/* メイン画面 */}
-        <main className="max-w-[1000px] min-w-[600px] mx-auto">{children}</main>
-
+        <main className="mx-auto max-w-[1000px] min-w-[600px]">{children}</main>
 
         {/* トースト導入 */}
         <Toaster

@@ -1,21 +1,33 @@
 "use client";
 
-import { PostPaginatedItems } from "../components/pagination/PostPaginatedItems";
-import type { Post } from "../types/types";
+import { useEffect, useState } from "react";
 
-// ダミーデータ　長さ9の空配列 [undefined, undefined, ...] を作る
-const dummyPosts: Post[] = Array.from({ length: 100 }).map((_, i) => ({
-  id: i + 1,
-  title: `Post Title ${i + 1}`,
-  category: "Category",
-  author: "Author",
-  date: "5 min ago",
-  thumbnail: "https://via.placeholder.com/300x200",
-}));
+import { createClient } from "@/utils/supabase/clients";
+
+import { PostPaginatedItems } from "../components/pagination/PostPaginatedItems";
+import { PostState } from "../types/post";
 
 const Home = () => {
-  // TODO 記事投稿内容実装次第変更すること。
-  const items = dummyPosts;
+  const [posts, setPosts] = useState<PostState[] | null>([]);
+
+  async function fetchPostsData() {
+    const supabase = createClient();
+    const { data } = await supabase.from("posts").select(`
+      *,
+      users (
+        *
+      ),
+      categories (
+        *
+      )
+    `);
+
+    setPosts(data);
+  }
+
+  useEffect(() => {
+    fetchPostsData();
+  }, []);
 
   return (
     <>
@@ -39,12 +51,11 @@ const Home = () => {
           </span>
         </section>
 
-
         {/* ページネーション */}
-        <PostPaginatedItems items={items} itemsPerPage={9} />
+        <PostPaginatedItems items={posts} itemsPerPage={9} />
       </main>
     </>
   );
-}
+};
 
 export default Home;

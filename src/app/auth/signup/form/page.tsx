@@ -8,10 +8,11 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
+import { FormInput } from "@/app/components/field/FormInput";
+
 import { createClient } from "@/utils/supabase/clients";
 
 import Button from "../../../components/button/Button";
-import { FormInput } from "@/app/components/field/FormInput";
 
 type Schema = z.infer<typeof schema>;
 
@@ -107,7 +108,7 @@ export default function SignUpPage() {
         <div className="w-1/3 text-center">
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign Up</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-5 mx-16 text-left">
+            <div className="mx-16 flex flex-col gap-5 text-left">
               {/* ユーザー名 */}
               <div className="flex flex-col gap-3">
                 <FormInput

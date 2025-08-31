@@ -10,10 +10,11 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
+import { FormInput } from "@/app/components/field/FormInput";
+
 import { createClient } from "@/utils/supabase/clients";
 
 import Button from "../../../components/button/Button";
-import { FormInput } from "@/app/components/field/FormInput";
 
 type Schema = z.infer<typeof schema>;
 
@@ -81,7 +82,7 @@ export default function LoginPage() {
           <h1 className="mt-40 mb-10 text-4xl font-bold">Sign In</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-5 mx-16 text-left">
+            <div className="mx-16 flex flex-col gap-5 text-left">
               {/* メールアドレス */}
               <div className="flex flex-col gap-3">
                 <FormInput
