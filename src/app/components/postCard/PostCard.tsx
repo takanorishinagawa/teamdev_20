@@ -35,9 +35,10 @@ const PostCard = ({ post }: PostCardProps) => {
       </div>
 
       {/* 著者と時間 */}
-      <div className="flex gap-5 text-sm text-gray-500">
-        <div>{post.author} </div>
-        <div>{post.date}</div>
+      <div className="flex flex-col gap-1 text-sm text-gray-500 items-start p-3">
+        <div>作成者：{post.author} </div>
+        <div>投稿日{post.date}</div>
+        <div>更新日{post.date}</div>
       </div>
     </button>
   );
