@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import useUserStore from "@/store/useUserStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,8 +18,8 @@ import RectButton from "../../button/RectButton";
 import AddDateArea from "../components/AddDateArea";
 import CategoryArea from "../components/CategoryArea";
 import ContentArea from "../components/ContentArea";
-import ImageFields from "../components/ImageFields";
 import TitleArea from "../components/TitleArea";
+import UpDateArea from "../components/UpDateArea";
 
 // 記事投稿フォーム（追加・編集）
 
@@ -32,6 +32,7 @@ const schema = z.object({
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
   created_at: z.string().min(1, { message: "日付を選択してください。" }),
+  updated_at: z.string().min(1, { message: "日付を選択してください。" }),
   category_id: z
     .string()
     .min(1, { message: "選択してください。" })
@@ -56,6 +57,9 @@ const ArticleEditForm = ({
   const supabase = createClient();
   const router = useRouter();
   const { user } = useUserStore();
+
+  const params = useParams() as { id?: string };
+  const postId = Number(params?.id);
 
   const [message, setMessage] = useState<
     | {
@@ -82,28 +86,22 @@ const ArticleEditForm = ({
     reValidateMode: "onSubmit",
   });
 
+  useEffect(() => {
+    reset({
+      title: defaultTitle,
+      content: defaultContent,
+      // created_at: new Date()
+      //   .toISOString()
+      //   .slice(0, 16) // "2025-08-19T12:53"
+      //   .replace("T", "_"), // "2025-08-19_12:53"
+      image_path: [] as File[],
+    });
+  }, [defaultTitle, defaultContent, defaultCategory, defaultCreated_at, reset]);
+
   const onSubmit = async (data: Schema) => {
     console.log("🔽 登録データ確認:", data);
 
     if (!user) return;
-
-    useEffect(() => {
-      reset({
-        title: defaultTitle,
-        content: defaultContent,
-        created_at: new Date()
-          .toISOString()
-          .slice(0, 16) // "2025-08-19T12:53"
-          .replace("T", "_"), // "2025-08-19_12:53"
-        image_path: [] as File[],
-      });
-    }, [
-      defaultTitle,
-      defaultContent,
-      defaultCategory,
-      defaultCreated_at,
-      reset,
-    ]);
 
     // 記事画像投稿
     const files = data.image_path;
@@ -112,15 +110,17 @@ const ArticleEditForm = ({
     // 画像以外を登録
     const { data: createData, error: createError } = await supabase
       .from("posts")
-      .insert({
-        user_id: user.id,
-        category_id: data.category_id,
+      .update({
+        // TODO カテゴリ編集
+        // category_id: data.category_id,
         title: data.title,
         content: data.content,
-        image_path: "",
-        created_at: data.created_at,
+        updated_at: new Date().toISOString().split("T")[0],
+
+        // TODO 更新日
       })
-      .select("id,created_at")
+      .eq("id", postId) // ★ これ必須！
+      .select("id, created_at")
       .single();
 
     if (createError || !createData) {
@@ -131,7 +131,7 @@ const ArticleEditForm = ({
       return;
     }
 
-    const postId = createData.id;
+    // const postId = createData.id;
     const createdAt = new Date(createData.created_at)
       .toISOString()
       .slice(0, 16) // "2025-08-19T12:53"
@@ -186,7 +186,7 @@ const ArticleEditForm = ({
     }
 
     if (!createError) {
-      toast.success("投稿しました！");
+      toast.success("更新しました！");
       router.replace("/articles");
     }
   };
@@ -201,7 +201,7 @@ const ArticleEditForm = ({
 
             {/* 画像アップロード */}
             {/* TODO コンポ化したい */}
-            <div className="flex w-full flex-col items-center gap-3">
+            {/* <div className="flex w-full flex-col items-center gap-3">
               <Controller
                 name="image_path"
                 control={control}
@@ -217,11 +217,14 @@ const ArticleEditForm = ({
                   {errors.image_path.message}
                 </p>
               )}
-            </div>
+            </div> */}
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
+              {/* 更新日 */}
+              <UpDateArea register={register} errors={errors.updated_at} />
+
               {/* 追加日 */}
-              <AddDateArea register={register} errors={errors.created_at} />
+              <AddDateArea register={register} errors={errors.updated_at} />
 
               {/* カテゴリー */}
               <CategoryArea
@@ -238,7 +241,7 @@ const ArticleEditForm = ({
             <div className="flex w-full max-w-[1200px] min-w-[600px] items-center justify-end gap-10">
               {message && <div className="text-red-500">{message.text}</div>}
 
-              <RectButton type="submit">Updata</RectButton>
+              <RectButton type="submit">Update</RectButton>
             </div>
           </div>
         </form>
