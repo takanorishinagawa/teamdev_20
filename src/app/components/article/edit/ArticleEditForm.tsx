@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -31,7 +31,7 @@ const schema = z.object({
     .string()
     .min(1, { message: "1文字以上で入力してください。" })
     .max(20, { message: "20文字以内で入力してください。" }),
-  saved_date: z.string().min(1, { message: "日付を選択してください。" }),
+  created_at: z.string().min(1, { message: "日付を選択してください。" }),
   category_id: z
     .string()
     .min(1, { message: "選択してください。" })
@@ -51,6 +51,7 @@ const ArticleEditForm = ({
   defaultTitle = "",
   defaultContent = "",
   defaultCategory = "",
+  defaultCreated_at = "",
 }: ArticleFormProps) => {
   const supabase = createClient();
   const router = useRouter();
@@ -67,12 +68,13 @@ const ArticleEditForm = ({
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitted },
   } = useForm({
     defaultValues: {
-      title: "",
-      content: "",
-      saved_date: new Date().toISOString().split("T")[0],
+      title: defaultTitle,
+      content: defaultContent,
+      created_at: new Date(defaultCreated_at).toISOString().split("T")[0],
       image_path: [] as File[],
     },
     resolver: zodResolver(schema),
@@ -84,6 +86,24 @@ const ArticleEditForm = ({
     console.log("🔽 登録データ確認:", data);
 
     if (!user) return;
+
+    useEffect(() => {
+      reset({
+        title: defaultTitle,
+        content: defaultContent,
+        created_at: new Date()
+          .toISOString()
+          .slice(0, 16) // "2025-08-19T12:53"
+          .replace("T", "_"), // "2025-08-19_12:53"
+        image_path: [] as File[],
+      });
+    }, [
+      defaultTitle,
+      defaultContent,
+      defaultCategory,
+      defaultCreated_at,
+      reset,
+    ]);
 
     // 記事画像投稿
     const files = data.image_path;
@@ -98,7 +118,7 @@ const ArticleEditForm = ({
         title: data.title,
         content: data.content,
         image_path: "",
-        created_at: data.saved_date,
+        created_at: data.created_at,
       })
       .select("id,created_at")
       .single();
@@ -177,11 +197,7 @@ const ArticleEditForm = ({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-7">
             {/* タイトル */}
-            <TitleArea
-              defaultTitle={defaultTitle}
-              register={register}
-              errors={errors.title}
-            />
+            <TitleArea register={register} errors={errors.title} />
 
             {/* 画像アップロード */}
             {/* TODO コンポ化したい */}
@@ -205,7 +221,7 @@ const ArticleEditForm = ({
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
               {/* 追加日 */}
-              <AddDateArea register={register} errors={errors.saved_date} />
+              <AddDateArea register={register} errors={errors.created_at} />
 
               {/* カテゴリー */}
               <CategoryArea
@@ -216,11 +232,7 @@ const ArticleEditForm = ({
             </div>
 
             {/* 投稿内容 */}
-            <ContentArea
-              defaultContent={defaultContent}
-              register={register}
-              errors={errors.content}
-            />
+            <ContentArea register={register} errors={errors.content} />
 
             {/* 記事作成ボタン */}
             <div className="flex w-full max-w-[1200px] min-w-[600px] items-center justify-end gap-10">

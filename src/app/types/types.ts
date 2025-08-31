@@ -22,6 +22,7 @@ export type ArticleFormProps = {
   defaultTitle?: string;
   defaultContent?: string;
   defaultCategory?: string;
+  defaultCreated_at?: string;
 };
 
 // 記事投稿時の画像処理用：ImageFields.tsx

@@ -8,7 +8,7 @@ const AddDateArea = ({ register, errors }: AddDateAreaProps) => {
       <input
         type="date"
         className="w-60 rounded-md border border-[#7777] p-3"
-        {...register("saved_date")}
+        {...register("created_at")}
       ></input>
       {errors && (
         <p className="mt-1 px-4 text-sm text-red-500">{errors.message}</p>
