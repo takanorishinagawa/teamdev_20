@@ -17,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
     <button
       type="button"
       onClick={() => router.push(`/articles/${post.id}`)}
-      className="cursor-pointer duration-300 rounded-lg border p-3 shadow transition hover:-translate-y-1 hover:shadow-md"
+      className="cursor-pointer rounded-lg border p-3 shadow transition duration-300 hover:-translate-y-1 hover:shadow-md"
     >
       {/* サムネイル */}
       <Image
@@ -35,9 +35,10 @@ const PostCard = ({ post }: PostCardProps) => {
       </div>
 
       {/* 著者と時間 */}
-      <p className="text-sm text-gray-500">
-        {post.author} ・ {post.date}
-      </p>
+      <div className="flex gap-5 text-sm text-gray-500">
+        <div>{post.author} </div>
+        <div>{post.date}</div>
+      </div>
     </button>
   );
 };
