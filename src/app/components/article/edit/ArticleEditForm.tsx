@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { useParams, useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import CategoryArea from "../components/CategoryArea";
 import ContentArea from "../components/ContentArea";
 import TitleArea from "../components/TitleArea";
 import UpDateArea from "../components/UpDateArea";
+import ImageFields from "../components/ImageFields";
 
 // 記事投稿フォーム（追加・編集）
 
@@ -201,7 +202,7 @@ const ArticleEditForm = ({
 
             {/* 画像アップロード */}
             {/* TODO コンポ化したい */}
-            {/* <div className="flex w-full flex-col items-center gap-3">
+            <div className="flex w-full flex-col items-center gap-3">
               <Controller
                 name="image_path"
                 control={control}
@@ -217,14 +218,14 @@ const ArticleEditForm = ({
                   {errors.image_path.message}
                 </p>
               )}
-            </div> */}
+            </div>
 
             <div className="flex w-full max-w-[1200px] min-w-[600px] justify-end gap-5">
               {/* 更新日 */}
               <UpDateArea register={register} errors={errors.updated_at} />
 
               {/* 追加日 */}
-              <AddDateArea register={register} errors={errors.updated_at} />
+              <AddDateArea register={register} errors={errors.created_at} />
 
               {/* カテゴリー */}
               <CategoryArea
