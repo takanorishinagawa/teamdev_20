@@ -1,15 +1,14 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
-import type { Post } from "@/app/types/types";
-
 import PostCard from "../postCard/PostCard";
+import { PostState } from "@/app/types/post";
 
 // 📍投稿画面用ページネーション
 // react-paginate を採用
 
 type PostPaginatedItemsProps = {
-  items: Post[];
+  items: PostState[] | null;
   itemsPerPage: number;
 };
 
@@ -19,11 +18,11 @@ export function PostPaginatedItems({
 }: PostPaginatedItemsProps) {
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const currentItems = items?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(items?.length! / itemsPerPage);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = (event.selected * itemsPerPage) % items?.length!;
     console.log(
       `選択されたページ番号: ${event.selected}, 新しい開始位置: ${newOffset}`,
     );
@@ -35,7 +34,7 @@ export function PostPaginatedItems({
       <div className="flex flex-col gap-5">
         {/* 投稿の表示部分 */}
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {currentItems.map((post) => (
+          {currentItems?.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </div>

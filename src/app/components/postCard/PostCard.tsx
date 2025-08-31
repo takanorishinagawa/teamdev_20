@@ -7,7 +7,7 @@ type PostCardProps = {
   post: PostState;
 };
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post }: any) => {
   return (
     <Link
       href={`/articles/${post.id}`}
