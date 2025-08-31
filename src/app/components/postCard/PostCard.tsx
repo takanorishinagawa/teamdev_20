@@ -1,7 +1,12 @@
+
+//型定義などで React.FC を使うので読み込む
+
 import Image from "next/image";
 import Link from "next/link";
 
-import { PostState } from "@/app/types/post";
+
+import type { Post } from "@/app/types/types";
+
 
 type PostCardProps = {
   post: PostState;

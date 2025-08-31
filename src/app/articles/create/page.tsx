@@ -1,8 +1,9 @@
-// 記事投稿用画面
-
 "use client";
 
-import React from "react";
+
+import ArticleForm from "@/app/components/article/ArticleForm";
+
+// 記事投稿用画面
 
 import ArticleForm from "@/app/components/article/ArticleForm";
 
