@@ -8,7 +8,7 @@ import { PostState } from "@/app/types/post";
 // react-paginate を採用
 
 type PostPaginatedItemsProps = {
-  items: PostState[] | null;
+  items: PostState[];
   itemsPerPage: number;
 };
 
@@ -19,10 +19,10 @@ export function PostPaginatedItems({
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items?.length! / itemsPerPage);
+  const pageCount = Math.ceil(items.length / itemsPerPage);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items?.length!;
+    const newOffset = (event.selected * itemsPerPage) % items.length;
     console.log(
       `選択されたページ番号: ${event.selected}, 新しい開始位置: ${newOffset}`,
     );

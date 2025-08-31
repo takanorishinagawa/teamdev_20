@@ -7,14 +7,14 @@ type PostCardProps = {
   post: PostState;
 };
 
-const PostCard = ({ post }: any) => {
+const PostCard = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`/articles/${post.id}`}
       className="cursor-pointer rounded-lg border p-3 shadow transition hover:shadow-md"
     >
       <Image
-        src={post?.image_path[0] ?? "/images/articleDetail/sample-image.jpg"}
+        src={post.image_path[0] ?? "/images/articleDetail/sample-image.jpg"}
         // src={"/images/articleDetail/sample-image.jpg"}
         alt={post.title}
         width={300}
