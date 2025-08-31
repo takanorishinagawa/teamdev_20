@@ -6,7 +6,7 @@ type FormInputProps = {
   type: "text" | "email" | "password";
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   ({ label, placeholder, type, ...rest }, ref) => {
     return (
       <div>
@@ -27,4 +27,3 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   },
 );
 
-export default FormInput;

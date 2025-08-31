@@ -13,7 +13,7 @@ import z from "zod";
 import { createClient } from "@/utils/supabase/clients";
 
 import Button from "../../../components/button/Button";
-import FormInput from "../../../components/field/FormInput";
+import { FormInput } from "@/app/components/field/FormInput";
 
 type Schema = z.infer<typeof schema>;
 

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
-// 📍投稿画面、画像登録時ページネーション
-// react-paginate を採用
-
 type PreviewPaginatedItemsProps = {
   items: string[];
   itemsPerPage: number;

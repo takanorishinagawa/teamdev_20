@@ -1,19 +1,17 @@
 "use client";
 
-
 import { use, useEffect, useState } from "react";
-
 
 import Image from "next/image";
 
 import Button from "@/app/components/button/Button";
 import { CommentItem } from "@/app/components/comment/CommentItem";
 
-
 import { Comment } from "../../types/types";
+import { PostState } from "@/app/types/post";
+import { createClient } from "@/utils/supabase/clients";
 
-
-export default function page({ params }: { params: Promise<{ id: number }> }) {
+export default function ArticlePage({ params }: { params: Promise<{ id: number }> }) {
   const { id } = use(params);
   const [post, setPost] = useState<PostState | null>(null);
 
@@ -37,8 +35,6 @@ export default function page({ params }: { params: Promise<{ id: number }> }) {
   useEffect(() => {
     fetchPostData();
   }, []);
-
-  console.log(post?.users?.image_path);
 
   // ダミーコメント
   const comments: Comment[] = [

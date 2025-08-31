@@ -17,7 +17,6 @@ const Home = () => {
   // TODO 記事投稿内容実装次第変更すること。
   const items = dummyPosts;
 
-
   return (
     <>
       <main className="p-8">
@@ -47,3 +46,5 @@ const Home = () => {
     </>
   );
 }
+
+export default Home;
