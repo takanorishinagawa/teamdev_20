@@ -8,7 +8,7 @@ import { PostPaginatedItems } from "../components/pagination/PostPaginatedItems"
 import { PostState } from "../types/post";
 
 const Home = () => {
-  const [posts, setPosts] = useState<PostState[] | null>([]);
+  const [posts, setPosts] = useState<PostState[]>([]);
 
   async function fetchPostsData() {
     const supabase = createClient();
