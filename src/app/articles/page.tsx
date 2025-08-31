@@ -22,7 +22,11 @@ const Home = () => {
       )
     `);
 
-    setPosts(data);
+    if (data) {
+      setPosts(data as PostState[]);
+    } else {
+      setPosts([]);
+    }
   }
 
   useEffect(() => {
