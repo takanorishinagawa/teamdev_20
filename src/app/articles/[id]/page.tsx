@@ -80,9 +80,10 @@ export default function ArticlePage({
         {/* 記事画像 */}
         <div className="relative min-h-[300px] w-full">
           <Image
-            src={
-              post.image_path[0] ?? "/images/articleDetail/sample-image.jpg"
-            }
+            // src={
+            //   post.image_path[0] ?? "/images/articleDetail/sample-image.jpg"
+            // }
+            src={"/images/articleDetail/sample-image.jpg"}
             alt="記事画像"
             fill
             className="rounded object-cover"
