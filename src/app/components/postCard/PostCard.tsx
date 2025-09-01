@@ -14,7 +14,11 @@ const PostCard = ({ post }: PostCardProps) => {
       className="cursor-pointer rounded-lg border p-3 shadow transition hover:shadow-md"
     >
       <Image
-        src={post.image_path[0] ?? "/images/articleDetail/sample-image.jpg"}
+        src={
+          Array.isArray(post.image_path) && post.image_path.length > 0 && typeof post.image_path[0] === "string"
+            ? post.image_path[0]
+            : "/images/articleDetail/sample-image.jpg"
+        }
         // src={"/images/articleDetail/sample-image.jpg"}
         alt={post.title}
         width={300}
