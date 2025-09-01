@@ -71,12 +71,14 @@ export default function ArticlePage({
             {post?.title}
           </h1>
           <div>
-            <Image
-              src={post?.users?.image_path ?? "/images/user-image.png"}
-              alt="ユーザーアイコン"
-              width={32}
-              height={32}
-            />
+            {post && post.users && post.users.image_path && (
+              <Image
+                src={post.users.image_path ? post.users.image_path : "/images/user-image.png"}
+                alt="ユーザーアイコン"
+                width={32}
+                height={32}
+              />
+            )}
           </div>
         </div>
         {/* 記事画像 */}
