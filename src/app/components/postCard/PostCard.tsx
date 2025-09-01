@@ -19,7 +19,6 @@ const PostCard = ({ post }: PostCardProps) => {
             ? post.image_path[0]
             : "/images/articleDetail/sample-image.jpg"
         }
-        // src={"/images/articleDetail/sample-image.jpg"}
         alt={post.title}
         width={300}
         height={200}
